@@ -10,6 +10,7 @@
 #define ofxAPP_h
 
 #include "ofMain.h"
+#include "ofxInteractivoHID.h"
 #include "ofxInteractivoFont.h"
 #include "ofxInteractivoColorPalette.h"
 #include "ofxJSON.h"
@@ -19,10 +20,14 @@ namespace ofxInteractivo  {
     class APP {
         
     public:
-        static void init();
+        static void init(int _output_width = 0,int _output_height = 0);
         
+        static ofxInteractivoHID   hid;
         static ofxInteractivoFont  font;
         static ofxInteractivoColorPalette   color;
+        
+        static int  width,height;
+
     private:
         
         static ofxJSONElement json_config;
