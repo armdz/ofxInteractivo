@@ -11,7 +11,7 @@
 
 #include "ofMain.h"
 
-void    app_log(string _msg)
+static void    app_log(string _msg)
 {
     ofLogNotice() << "APP : " << _msg;
 };

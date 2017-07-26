@@ -10,6 +10,7 @@
 #define ofxInteractivoFont_h
 
 #include "ofMain.h"
+#include "ofxInteractivoConstants.h"
 
 class ofxInteractivoFont {
     

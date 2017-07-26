@@ -11,7 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxInteractivoFont.h"
-
+#include "ofxInteractivoColorPalette.h"
 #include "ofxJSON.h"
 
 namespace ofxInteractivo  {
@@ -22,6 +22,7 @@ namespace ofxInteractivo  {
         static void init();
         
         static ofxInteractivoFont  font;
+        static ofxInteractivoColorPalette   color;
     private:
         
         static ofxJSONElement json_config;

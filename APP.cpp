@@ -14,7 +14,8 @@ namespace ofxInteractivo  {
     ofxJSONElement  APP::json_config;
     
     ofxInteractivoFont  APP::font;
-    
+    ofxInteractivoColorPalette   APP::color;
+
     //  PUBLIC
     
     void    APP::init()

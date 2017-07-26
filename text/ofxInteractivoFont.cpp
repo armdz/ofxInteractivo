@@ -13,7 +13,6 @@
 
 ofxInteractivoFont::ofxInteractivoFont()
 {
-    
 }
 
 ofxInteractivoFont::~ofxInteractivoFont()
