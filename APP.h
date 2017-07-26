@@ -10,6 +10,8 @@
 #define ofxAPP_h
 
 #include "ofMain.h"
+#include "ofxInteractivoFont.h"
+
 #include "ofxJSON.h"
 
 namespace ofxInteractivo  {
@@ -19,8 +21,8 @@ namespace ofxInteractivo  {
     public:
         static void init();
         
+        static ofxInteractivoFont  font;
     private:
-        static void    app_log(string _msg);
         
         static ofxJSONElement json_config;
         

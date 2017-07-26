@@ -7,26 +7,26 @@
 //
 
 #include "APP.h"
+#include "ofxInteractivoConstants.h"
 
 namespace ofxInteractivo  {
     
     ofxJSONElement  APP::json_config;
     
-    void    APP::init(){
-      
+    ofxInteractivoFont  APP::font;
+    
+    //  PUBLIC
+    
+    void    APP::init()
+    {
         if(json_config.open("config.json")){
             
         }else{
-            app_log("config.json doesnt exists");
+            //app_log("config.json doesnt exists");
         }
-        
     }
     
     //  PRIVATES
-    
-    void    APP::app_log(string _msg)
-    {
-        ofLogNotice() << "APP : " << _msg;
-    }
+  
 
 };
