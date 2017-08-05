@@ -16,16 +16,18 @@ namespace ofxInteractivo  {
     ofxJSONElement  APP::json_config;
     int APP::width;
     int APP::height;
+    string APP::name;
     
     //  MODULES
     
     ofxInteractivoHID   APP::hid;
     ofxInteractivoFont  APP::font;
     ofxInteractivoColorPalette   APP::color;
+    ofxInteractivoImages    APP::image;
 
     //  PUBLIC
-    
-    void    APP::init(int _output_width,int _output_height)
+
+    void    APP::init(string _name,int _output_width,int _output_height)
     {
         if(json_config.open("config.json")){
             if(json_config["config"] != Json::nullValue)
@@ -35,6 +37,8 @@ namespace ofxInteractivo  {
         }else{
             //app_log("config.json doesnt exists");
         }
+        //  app name
+        name = _name;
         if(_output_width != 0 && _output_height != 0)
         {
             //  can get the resolution from config.json
@@ -42,9 +46,26 @@ namespace ofxInteractivo  {
             width = _output_width;
             height = _output_height;
         }
+        if(width == 0 || height == 0)
+        {
+            width = ofGetWidth();
+            height = ofGetHeight();
+        }
         //
         hid.init();
+        image.init();
         
+    }
+    
+    void    APP::push_center()
+    {
+        ofPushMatrix();
+        ofTranslate(width*.5f, height*.5f);
+    }
+    
+    void    APP::pop_center()
+    {
+        ofPopMatrix();
     }
     
     //  PRIVATES
