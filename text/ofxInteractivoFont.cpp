@@ -48,7 +48,7 @@ ofRectangle ofxInteractivoFont::get_box(string _font_name,string _text)
     return fonts.at(_font_name).getStringBoundingBox(_text, 0, 0);
 }
 
-string      ofxInteractivoFont::text_at_width(string _font_name,string _text,float _width)
+string      ofxInteractivoFont::text_for_width(string _font_name,string _text,float _width)
 {
     string f_text = "";
     string line = "";

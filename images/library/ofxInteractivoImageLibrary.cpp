@@ -64,6 +64,45 @@ ofImage* ofxInteractivoImageLibrary::get(string _image_name)
     delete ptr;
 }
 
+//  Get images scaled bounds
+
+float   ofxInteractivoImageLibrary::get_width(string _image_name,float _scale)
+{
+    return images.at(_image_name).getWidth()*_scale;
+}
+
+float   ofxInteractivoImageLibrary::get_height(string _image_name,float _scale)
+{
+    return images.at(_image_name).getHeight()*_scale;
+}
+
+//  Get width in scale for specific height
+
+float   ofxInteractivoImageLibrary::width_for_height(string _image_name,float _height)
+{
+    ofImage *image = get(_image_name);
+    if(image != NULL)
+    {
+        return (_height*image->getWidth())/image->getHeight();
+    }else{
+        return 0.0f;
+    }
+    delete image;
+}
+
+//  Get height in scale for specific width
+
+float   ofxInteractivoImageLibrary::height_for_width(string _image_name,float _width)
+{
+    ofImage *image = get(_image_name);
+    if(image != NULL)
+    {
+        return (_width*image->getHeight())/image->getWidth();
+    }else{
+        return 0.0f;
+    }
+    delete image;}
+
 //  Draw
 
 void    ofxInteractivoImageLibrary::draw_centered(string _image_name,float _scale)

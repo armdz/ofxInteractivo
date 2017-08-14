@@ -22,7 +22,7 @@ public:
     void draw_centered(string _font_name,string _text);
     ofTrueTypeFont& get(string _font_name);
     ofRectangle get_box(string _font_name,string _text);
-    string      text_at_width(string _font_name,string _text,float _width);
+    string      text_for_width(string _font_name,string _text,float _width);
 private:
     std::map<std::string, ofTrueTypeFont& > fonts;
 

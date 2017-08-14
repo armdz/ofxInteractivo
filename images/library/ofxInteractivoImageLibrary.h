@@ -22,6 +22,10 @@ public:
     void    add(ofFile _file,string _name = "");
     void    draw_centered(string _image_name,float _scale = 1.0f);
     ofImage* get(string _image_name);
+    float   get_width(string _image_name,float _scale = 1.0f);
+    float   get_height(string _image_name,float _scale = 1.0f);
+    float   width_for_height(string _image_name,float _height);
+    float   height_for_width(string _image_name,float _width);
 private:
     string  name;
     std::map<std::string, ofImage&> images;
