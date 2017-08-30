@@ -37,7 +37,11 @@ void    ofxInteractivoImages::init()
     fbo_lost_image.end();
     fbo_lost_image.readToPixels(lost_image.getPixels());
     lost_image.update();
+    fbo_lost_image.clear();
     //
+    
+    ofAddListener(ofEvents().update, this, &ofxInteractivoImages::update);
+    
 }
 
 void    ofxInteractivoImages::scan(string _folder_path,string _library_name)
@@ -47,6 +51,25 @@ void    ofxInteractivoImages::scan(string _folder_path,string _library_name)
     new_library->scan(_folder_path);
     libraries.insert(std::pair<string, ofxInteractivoImageLibrary& >(_library_name,*new_library));
 }
+
+void    ofxInteractivoImages::listen(string _library_name)
+{/*
+    if(libraries.count(_library_name) != 0)
+    {
+        listened_libraries.push_back(&libraries.at(_library_name));
+        app_log("Listening " + _library_name);
+    }*/
+}
+
+//
+
+void    ofxInteractivoImages::update(ofEventArgs &e)
+{
+    //  check the listened libraries
+    
+}
+
+//
 
 ofImage ofxInteractivoImages::get(string _library_name,string _image_name)
 {

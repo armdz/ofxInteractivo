@@ -23,11 +23,13 @@ ofxInteractivoImageLibrary::~ofxInteractivoImageLibrary()
 void    ofxInteractivoImageLibrary::setup(string _name)
 {
     name = _name;
+    file_count = 0;
 }
 
 void    ofxInteractivoImageLibrary::scan(string _dir_path)
 {
     ofDirectory dir;
+
     dir.allowExt("jpg");
     dir.allowExt("png");
     dir.allowExt("jpg");
@@ -49,9 +51,27 @@ void    ofxInteractivoImageLibrary::add(ofFile _file,string _name)
             
         }
         images.insert(std::pair<string, ofImage& >(_name,*new_image));
+        file_count++;
         app_log("Added " + _name + " to " + name);
     }
 }
+
+//  Listen the folder waiting new files
+
+vector<string>    ofxInteractivoImageLibrary::read_dir()
+{
+    vector<string>  new_files;
+   /* if(file_count < dir.listDir())
+    {
+        for(int i=file_count;i<dir.listDir();i++)
+        {
+            new_files.push_back(dir.getFile(i).getAbsolutePath());
+        }
+    }*/
+    return new_files;
+}
+
+//
 
 ofImage* ofxInteractivoImageLibrary::get(string _image_name)
 {

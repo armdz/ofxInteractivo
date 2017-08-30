@@ -32,7 +32,9 @@ namespace ofxInteractivo  {
         if(json_config.open("config.json")){
             if(json_config["config"] != Json::nullValue)
             {
-                json_config = json_config["config"];
+                if(json_config["config"] != Json::nullValue){
+                    json_config = json_config["config"];
+                }
             }
         }else{
             //app_log("config.json doesnt exists");
@@ -56,6 +58,31 @@ namespace ofxInteractivo  {
         image.init();
         
     }
+    
+    //
+    
+    ofxJSONElement  APP::config()
+    {
+        return json_config;
+    }
+    
+    int     APP::config_i(string _key_name)
+    {
+        return json_config[_key_name].asInt();
+    }
+    
+    float   APP::config_f(string _key_name)
+    {
+        return json_config[_key_name].asFloat();
+    }
+    
+    string  APP::config_s(string _key_name)
+    {
+        return json_config[_key_name].asString();
+    }
+
+    
+    //
     
     void    APP::push_center()
     {

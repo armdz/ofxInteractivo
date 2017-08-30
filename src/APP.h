@@ -31,6 +31,16 @@ namespace ofxInteractivo  {
         static int  width,height;
         static string name;
         
+        //  App config
+        
+        static  ofxJSONElement  config();
+        static  int     config_i(string _key_name);
+        static  float   config_f(string _key_name);
+        static  string  config_s(string _key_name);
+        
+        //  APP events
+        
+
         //  APP related functions
         
         static  void    push_center();
