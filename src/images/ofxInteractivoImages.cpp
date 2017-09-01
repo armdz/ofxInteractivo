@@ -39,26 +39,25 @@ void    ofxInteractivoImages::init()
     lost_image.update();
     fbo_lost_image.clear();
     //
-    
     ofAddListener(ofEvents().update, this, &ofxInteractivoImages::update);
     
 }
 
 void    ofxInteractivoImages::scan(string _folder_path,string _library_name)
 {
-    ofxInteractivoImageLibrary* new_library;
+    ofxInteractivoImageLibrary* new_library = new ofxInteractivoImageLibrary();
     new_library->setup(_library_name);
     new_library->scan(_folder_path);
     libraries.insert(std::pair<string, ofxInteractivoImageLibrary& >(_library_name,*new_library));
 }
 
 void    ofxInteractivoImages::listen(string _library_name)
-{/*
+{
     if(libraries.count(_library_name) != 0)
     {
         listened_libraries.push_back(&libraries.at(_library_name));
         app_log("Listening " + _library_name);
-    }*/
+    }
 }
 
 //
@@ -66,6 +65,20 @@ void    ofxInteractivoImages::listen(string _library_name)
 void    ofxInteractivoImages::update(ofEventArgs &e)
 {
     //  check the listened libraries
+    for(int i=0;i<listened_libraries.size();i++)
+    {
+        vector<string>  new_files_in_dir = listened_libraries.at(i)->read_dir();
+        if(new_files_in_dir.size() > 0)
+        {
+            for(int f=0;f<new_files_in_dir.size();f++)
+            {
+                ofFile  file = ofFile(new_files_in_dir.at(f));
+                //  por que me agarra mal el archivo///
+                listened_libraries.at(i)->add(file);
+            }
+        }
+        new_files_in_dir.clear();
+    }
     
 }
 

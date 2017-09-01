@@ -22,7 +22,7 @@ public:
     void    add(ofFile _file,string _name = "");
     void    draw_centered(string _image_name,float _scale = 1.0f);
     vector<string>    read_dir();
-
+    string  get_name();
     ofImage* get(string _image_name);
     float   get_width(string _image_name,float _scale = 1.0f);
     float   get_height(string _image_name,float _scale = 1.0f);
@@ -34,7 +34,7 @@ private:
     string  name;
     string  dir_path;
     std::map<std::string, ofImage&> images;
-   // ofDirectory dir;
+    ofDirectory directory;
     int     file_count;
 };
 

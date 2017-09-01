@@ -28,15 +28,13 @@ void    ofxInteractivoImageLibrary::setup(string _name)
 
 void    ofxInteractivoImageLibrary::scan(string _dir_path)
 {
-    ofDirectory dir;
-
-    dir.allowExt("jpg");
-    dir.allowExt("png");
-    dir.allowExt("jpg");
-    dir.open(ofToDataPath(_dir_path));
-    for(int i=0;i<dir.getFiles().size();i++)
+    directory.allowExt("jpg");
+    directory.allowExt("png");
+    directory.allowExt("jpg");
+    directory.open(ofToDataPath(_dir_path));
+    for(int i=0;i<directory.getFiles().size();i++)
     {
-        add(dir.getFiles().at(i));
+        add(directory.getFiles().at(i));
     }
 }
 
@@ -61,17 +59,22 @@ void    ofxInteractivoImageLibrary::add(ofFile _file,string _name)
 vector<string>    ofxInteractivoImageLibrary::read_dir()
 {
     vector<string>  new_files;
-   /* if(file_count < dir.listDir())
+    if(file_count < directory.listDir())
     {
-        for(int i=file_count;i<dir.listDir();i++)
+        for(int i=file_count;i<directory.listDir();i++)
         {
-            new_files.push_back(dir.getFile(i).getAbsolutePath());
+            new_files.push_back(directory.getFile(i).getAbsolutePath());
         }
-    }*/
+    }
     return new_files;
 }
 
 //
+
+string  ofxInteractivoImageLibrary::get_name()
+{
+    return name;
+}
 
 ofImage* ofxInteractivoImageLibrary::get(string _image_name)
 {
