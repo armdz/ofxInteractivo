@@ -95,6 +95,12 @@ namespace ofxInteractivo  {
         ofPopMatrix();
     }
     
+    void    APP::show_fps()
+    {
+        ofSetColor(255);
+        ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(),2), 20, 20);
+    }
+    
     //  PRIVATES
   
 

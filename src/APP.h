@@ -45,6 +45,7 @@ namespace ofxInteractivo  {
         
         static  void    push_center();
         static  void    pop_center();
+        static  void    show_fps();
 
     private:
         
