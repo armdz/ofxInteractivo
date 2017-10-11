@@ -14,6 +14,9 @@
 #include "EMTimer.h"
 #include "EMInterpolator.h"
 #include "EMOscillator.h"
+#include "ofxInteractivo.h"
+
+using namespace ofxInteractivo;
 
 class EMObject : public EMAbstract
 {

@@ -80,7 +80,6 @@ namespace ofxInteractivo  {
     {
         return json_config[_key_name].asString();
     }
-
     
     //
     

@@ -45,8 +45,7 @@ void    ofxInteractivoImageLibrary::add(ofFile _file,string _name)
     {
         if(_name == "")
         {
-            _name = _file.getFileName().substr(0,_file.getFileName().find_last_of("."));
-            
+            _name = get_file_name(_file);
         }
         images.insert(std::pair<string, ofImage& >(_name,*new_image));
         file_count++;
@@ -59,14 +58,28 @@ void    ofxInteractivoImageLibrary::add(ofFile _file,string _name)
 vector<string>    ofxInteractivoImageLibrary::read_dir()
 {
     vector<string>  new_files;
-    if(file_count < directory.listDir())
+    if(file_count != directory.listDir())
     {
-        for(int i=file_count;i<directory.listDir();i++)
+        for(int i=0;i<directory.listDir();i++)
         {
-            new_files.push_back(directory.getFile(i).getAbsolutePath());
+            string file_name = get_file_name(directory.getFile(i));
+            if(!exists(file_name))
+                new_files.push_back(directory.getFile(i).getAbsolutePath());
         }
     }
     return new_files;
+}
+
+void    ofxInteractivoImageLibrary::draw_file_list(float _x,float _y)
+{
+    ofDrawBitmapStringHighlight("Library : '" + name + "'",_x,_y);
+    int index = 0;
+    for(auto img : images)
+    {
+        ofSetColor(255);
+        ofDrawBitmapStringHighlight(img.first, _x, _y+16+(16*index));
+        index++;
+    }
 }
 
 //
@@ -124,7 +137,9 @@ float   ofxInteractivoImageLibrary::height_for_width(string _image_name,float _w
     }else{
         return 0.0f;
     }
-    delete image;}
+    delete image;
+    
+}
 
 //  Draw
 
@@ -144,6 +159,13 @@ void    ofxInteractivoImageLibrary::draw_centered(string _image_name,float _scal
 bool    ofxInteractivoImageLibrary::exists(string _name)
 {
     return images.count(_name);
+}
+
+//  Get file name without extension
+
+string  ofxInteractivoImageLibrary::get_file_name(ofFile _file)
+{
+    return _file.getFileName().substr(0,_file.getFileName().find_last_of("."));
 }
 
 

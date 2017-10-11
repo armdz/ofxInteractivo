@@ -27,11 +27,11 @@ public:
   bool  runing();
   int   times();
   float val();
+    float duration;
 
 private:
   bool  do_bang;
   bool  is_runing;
-  float duration;
   float ellapsed;
   float norm_val;
   int   times_limit;

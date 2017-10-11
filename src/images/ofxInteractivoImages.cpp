@@ -73,6 +73,7 @@ void    ofxInteractivoImages::update(ofEventArgs &e)
             for(int f=0;f<new_files_in_dir.size();f++)
             {
                 ofFile  file = ofFile(new_files_in_dir.at(f));
+                while(file.getSize() < 1);
                 //  por que me agarra mal el archivo///
                 listened_libraries.at(i)->add(file);
             }
