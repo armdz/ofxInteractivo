@@ -19,7 +19,8 @@ public:
     ~ofxInteractivoImages();
     void    init();
     void    scan(string _folder_path,string _library_name);
-    void    listen(string _library_name);
+    void    listen_start(string _library_name);
+    void    listen_stop(string _library_name);
     ofImage get(string _library_name,string _image_name);
     ofxInteractivoImageLibrary  get(string _library_name);
 private:

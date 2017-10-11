@@ -22,7 +22,7 @@ EMOscillator::~EMOscillator()
   
 }
 
-void EMOscillator::setup(string _name,float  _vel,int  _type,float _offset)
+void EMOscillator::setup(string _name,float  _vel,EMOSCType  _type,float _offset)
 {
   set_name(_name);
   vel = _vel;
@@ -44,7 +44,7 @@ void  EMOscillator::stop()
 void EMOscillator::update()
 {
   if(runing){
-    value = type == EM::sin ? sin(offset+acum) : cos(offset+acum);
+    //value = type == EM::sin ? sin(offset+acum) : cos(offset+acum);
     acum+=vel;
   }
 }

@@ -26,34 +26,35 @@
 class EMInterpolator : public EMAbstract {
   
 public:
-  EMInterpolator();
-  ~EMInterpolator();
-  void  setup(string _name,float _init,float _final,float   _duration,float (*_type)(float,float,float,float),bool _loop = false);
-  void  start();
-  void  rewind();
-  void  stop();
-  void  reset();
-  void  loop(bool _val);
-  void  update();
-  bool  bang();
-  float val();
-  float normalized();
-  bool  runing;
-  bool  reverse;
-
+    EMInterpolator();
+    ~EMInterpolator();
+    void  setup(string _name,float _init,float _final,float   _duration,float (*_type)(float,float,float,float),bool _loop = false);
+    void  start();
+    void  rewind();
+    void  stop();
+    void  reset();
+    void  loop(bool _val);
+    void  update();
+    bool  bang();
+    float val();
+    float normalized();
+    bool  is_runing();
+    bool  is_reversed();
 private:
-  float (*type)(float,float,float,float);
-  bool  do_loop;
-  bool  do_bang;
-  bool  started;
-  float duration_bkp;
-  float sample_norm;
-  float duration;
-  float time;
-  float normalized_value;
-  float value;
-  float init_value;
-  float final_value;
+    float (*type)(float,float,float,float);
+    bool  do_loop;
+    bool  do_bang;
+    bool  started;
+    bool  runing;
+    bool  reverse;
+    float duration_bkp;
+    float sample_norm;
+    float duration;
+    float time;
+    float normalized_value;
+    float value;
+    float init_value;
+    float final_value;
 };
 
 #endif /* defined(__dataViz__EMInterpolator__) */

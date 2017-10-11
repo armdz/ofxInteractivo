@@ -51,12 +51,22 @@ void    ofxInteractivoImages::scan(string _folder_path,string _library_name)
     libraries.insert(std::pair<string, ofxInteractivoImageLibrary& >(_library_name,*new_library));
 }
 
-void    ofxInteractivoImages::listen(string _library_name)
+void    ofxInteractivoImages::listen_start(string _library_name)
 {
     if(libraries.count(_library_name) != 0)
     {
         listened_libraries.push_back(&libraries.at(_library_name));
-        app_log("Listening " + _library_name);
+        app_log("Listening START " + _library_name);
+    }
+}
+
+void    ofxInteractivoImages::listen_stop(string _library_name)
+{
+    int library_index = libraries.count(_library_name);
+    if(library_index != 0)
+    {
+        listened_libraries.erase(listened_libraries.begin()+library_index);
+        app_log("Listening STOP " + _library_name);
     }
 }
 

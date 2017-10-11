@@ -12,22 +12,28 @@
 #include <stdio.h>
 #include "EMAbstract.h"
 
+enum EMOSCType
+{
+    EM_OSC_SIN,
+    EM_OSC_COS
+};
+
 class EMOscillator : public EMAbstract {
   
 public:
-  EMOscillator();
-  ~EMOscillator();
-  void  setup(string _name,float  _vel,int  _type = EM::sin,float _offset = 0.0);
-  void  start();
-  void  stop();
-  void  update();
-  float val();
+    EMOscillator();
+    ~EMOscillator();
+    void  setup(string _name,float  _vel,EMOSCType  _type = EM_OSC_SIN,float _offset = 0.0);
+    void  start();
+    void  stop();
+    void  update();
+    float val();
 private:
-  float acum;
-  float value;
-  float vel;
-  float offset;
-  
+    float acum;
+    float value;
+    float vel;
+    float offset;
+    EMOSCType   type;
 };
 
 #endif /* defined(__dataViz__EMOscillator__) */

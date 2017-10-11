@@ -16,27 +16,26 @@
 class EMTimer : public EMAbstract
 {
 public:
-  EMTimer();
-  ~EMTimer();
-  void  setup(string _name,float  _duration,int  _times);
-  void  start();
-  void  stop();
-  void  update();
-  void  set_duration(float _duration);
-  bool  bang();
-  bool  runing();
-  int   times();
-  float val();
-    float duration;
-
+    EMTimer();
+    ~EMTimer();
+    void  setup(string _name,float  _duration,int  _times);
+    void  start();
+    void  stop();
+    void  update();
+    void  set_duration(float _duration);
+    bool  bang();
+    bool  runing();
+    float get_duration();
+    float val();
+    int   times();
 private:
-  bool  do_bang;
-  bool  is_runing;
-  float ellapsed;
-  float norm_val;
-  int   times_limit;
-  int   times_counter;
-
+    bool  do_bang;
+    bool  is_runing;
+    float ellapsed;
+    float norm_val;
+    int   times_limit;
+    int   times_counter;
+    float duration;
 };
 
 #endif /* defined(__dataViz__EMTimer__) */
