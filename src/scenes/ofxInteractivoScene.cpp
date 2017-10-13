@@ -9,7 +9,7 @@
 
 ofxInteractivoScene::ofxInteractivoScene()
 {
-    
+
 }
 
 ofxInteractivoScene::~ofxInteractivoScene()
@@ -19,31 +19,13 @@ ofxInteractivoScene::~ofxInteractivoScene()
 
 void    ofxInteractivoScene::setup(string _name)
 {
-    name = _name;
+    GUIObject::setup(_name);
+    init();
 }
 
-void    ofxInteractivoScene::custom_update()
+void    ofxInteractivoScene::update()
 {
-    
+    GUIObject::update();
+    EMObject::update();
+    custom_update();
 }
-
-void    ofxInteractivoScene::draw()
-{
-    
-}
-
-void    ofxInteractivoScene::on_show()
-{
-    
-}
-
-void    ofxInteractivoScene::on_hide()
-{
-    
-}
-
-void    ofxInteractivoScene::reset()
-{
-    
-}
-

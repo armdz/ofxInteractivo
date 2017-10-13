@@ -17,6 +17,7 @@ public:
     EMAbstract(){};
     ~EMAbstract(){};
     bool    runing;
+protected:
     void    set_name(string _name){
         name = _name;
     };
@@ -24,7 +25,6 @@ public:
     {
         return name;
     };
-protected:
     string  name;
   
 };

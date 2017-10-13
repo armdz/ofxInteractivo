@@ -10,18 +10,23 @@
 
 #include "ofMain.h"
 #include "EMObject.h"
+#include "GUIObject.hpp"
+#include "GUIButton.hpp"
 
-class ofxInteractivoScene : public EMObject{
+using namespace ofxInteractivo::gui;
+
+class ofxInteractivoScene : public GUIObject,protected EMObject{
     
 public:
     ofxInteractivoScene();
     ~ofxInteractivoScene();
     void    setup(string _name);
-    void    on_show();  //  prev to show
-    void    on_hide();  //  prev to hide
-    void    reset();    //  called when is totally hided
-    void    custom_update();
-    void    draw();
+    virtual void    on_show(){};  //  prev to show
+    virtual void    on_hide(){};  //  prev to hide
+    virtual void    reset(){};   //  called when is totally hided
+    virtual void    custom_update(){};
+    virtual void    draw(){};
+    void    update();
 private:
     
 };

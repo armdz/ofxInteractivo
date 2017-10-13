@@ -9,6 +9,10 @@
 #define ofxInteractivoSceneManager_h
 
 #include "ofxInteractivoScene.h"
+#include "GUIManager.hpp"
+#include "ofxInteractivoConstants.h"
+
+using namespace ofxInteractivo::gui;
 
 class ofxInteractivoSceneManager {
     
@@ -16,9 +20,12 @@ public:
     ofxInteractivoSceneManager();
     ~ofxInteractivoSceneManager();
     void    init();
+    void    add(ofxInteractivoScene *_scene);
     void    update(ofEventArgs  &_args);
     void    draw(ofEventArgs  &_args);
-
+private:
+    GUIManager  gui;
+    map<string,ofxInteractivoScene* >    scenes;
 };
 
 

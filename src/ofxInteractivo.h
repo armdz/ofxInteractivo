@@ -10,5 +10,6 @@
 #define ofxInteractivo_h
 
 #include "APP.h"
+#include "ofxInteractivoSceneManager.h"
 
 #endif /* ofxInteractivo_h */

@@ -14,7 +14,6 @@
 #include "ofxInteractivoFont.h"
 #include "ofxInteractivoColorPalette.h"
 #include "ofxInteractivoImages.h"
-#include "ofxInteractivoSceneManager.h"
 #include "ofxJSON.h"
 
 namespace ofxInteractivo  {
@@ -28,7 +27,6 @@ namespace ofxInteractivo  {
         static ofxInteractivoFont  font;
         static ofxInteractivoColorPalette   color;
         static ofxInteractivoImages image;
-        static ofxInteractivoSceneManager   scenes;
         
         static int  width,height;
         static string name;

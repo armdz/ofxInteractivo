@@ -16,7 +16,7 @@
 #include "EMInterpolator.h"
 #include "EMOscillator.h"
 
-class EMObject : public EMAbstract
+class EMObject : protected EMAbstract
 {
   
 public:

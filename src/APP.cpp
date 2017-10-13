@@ -24,7 +24,6 @@ namespace ofxInteractivo  {
     ofxInteractivoFont  APP::font;
     ofxInteractivoColorPalette   APP::color;
     ofxInteractivoImages    APP::image;
-    ofxInteractivoSceneManager  APP::scenes;
 
     //  PUBLIC
 
@@ -57,7 +56,6 @@ namespace ofxInteractivo  {
         //
         hid.init();
         image.init();
-        scenes.init();
     }
     
     //
