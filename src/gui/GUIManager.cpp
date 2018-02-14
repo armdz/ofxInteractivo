@@ -8,7 +8,6 @@
 
 #include "GUIManager.hpp"
 
-namespace ofxInteractivo { namespace gui{
 
 GUIManager::GUIManager()
 {
@@ -57,12 +56,12 @@ void  GUIManager::set_max_id(int _max_id)
   id_count = max_id;
 }
 
-void  GUIManager::add(GUIObject *_object)
+void  GUIManager::add(ofxINUIObject *_object)
 {
   add_in_order(_object);
 }
 
-void  GUIManager::add_in_order(GUIObject *_object)
+void  GUIManager::add_in_order(ofxINUIObject *_object)
 {
   if(_object->is_system_owned())
   {
@@ -135,7 +134,7 @@ void  GUIManager::update()
   }
   
   int object_index = 0;
-  GUIObject  *temp_focus_object = NULL;
+  ofxINUIObject  *temp_focus_object = NULL;
   bool        some_on_focus = false;
   while(object_index < objects.size())
   {
@@ -201,7 +200,7 @@ void  GUIManager::clear()
 {
   
 
-  vector<GUIObject*> to_save;
+  vector<ofxINUIObject*> to_save;
   for(int i=0;i<objects.size();i++)
   {
     if(objects.at(i)->is_system_owned())
@@ -219,9 +218,9 @@ void  GUIManager::clear()
   
 }
 
-GUIObject*   GUIManager::get_object_by(int _id)
+ofxINUIObject*   GUIManager::get_object_by(int _id)
 {
-  GUIObject* ret = NULL;
+  ofxINUIObject* ret = NULL;
   int   i = 0;
   while(i<objects.size() && ret == NULL)
   {
@@ -234,7 +233,7 @@ GUIObject*   GUIManager::get_object_by(int _id)
   return ret;
 }
   
-int   GUIManager::get_object_index(GUIObject*  _object)
+int   GUIManager::get_object_index(ofxINUIObject*  _object)
 {
   int   ret = -1;
   int   i = 0;
@@ -395,5 +394,3 @@ void  GUIManager::on_key_pressed(ofKeyEventArgs &e)
     }
   }
 }
-
-}}

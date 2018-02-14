@@ -10,7 +10,7 @@
 #define __dataViz__EMOscillator__
 
 #include <stdio.h>
-#include "EMAbstract.h"
+#include "ofxINAbstract.h"
 
 enum EMOSCType
 {
@@ -18,11 +18,11 @@ enum EMOSCType
     EM_OSC_COS
 };
 
-class EMOscillator : public EMAbstract {
+class ofxINOscillator : public ofxINAbstract {
   
 public:
-    EMOscillator();
-    ~EMOscillator();
+    ofxINOscillator();
+    ~ofxINOscillator();
     void  setup(string _name,float  _vel,EMOSCType  _type = EM_OSC_SIN,float _offset = 0.0);
     void  start();
     void  stop();

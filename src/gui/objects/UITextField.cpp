@@ -8,7 +8,6 @@
 
 #include "UITextField.hpp"
 
-namespace ofxInteractivo { namespace gui{
 
 UITextField::UITextField()
 {
@@ -68,7 +67,7 @@ void  UITextField::set_type_alpha()
   
 void  UITextField::enable(bool _val)
 {
-  GUIObject::enable(_val);
+  ofxINUIObject::enable(_val);
   if(_val){
     cursor_show = true;
     cursor_blink_time = ofGetElapsedTimeMillis();
@@ -294,4 +293,4 @@ bool  UITextField::change()
   return text_change;
 }
 
-}}
+

@@ -1,34 +1,31 @@
 //
-//  ofxInteractivoScene.hpp
+//  Scene.hpp
 //  development_interactivo
 //
 //  Created by Lolo on 10/11/17.
 //
 
-#ifndef ofxInteractivoScene_h
-#define ofxInteractivoScene_h
+#ifndef Scene_h
+#define Scene_h
 
 #include "ofMain.h"
-#include "EMObject.h"
-#include "GUIObject.hpp"
+#include "ofxINObject.h"
+#include "ofxINUIObject.hpp"
 #include "GUIButton.hpp"
 
-using namespace ofxInteractivo::gui;
-
-class ofxInteractivoScene : public GUIObject,protected EMObject{
+class Scene : public ofxINUIObject,private ofxINObject{
     
 public:
-    ofxInteractivoScene();
-    ~ofxInteractivoScene();
-    void    setup(string _name);
+    Scene();
+    ~Scene();
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided
     virtual void    custom_update(){};
     virtual void    draw(){};
     void    update();
-private:
-    
+protected:
+    string  name;
 };
 
-#endif /* ofxInteractivoScene_h */
+#endif /* Scene_h */

@@ -9,17 +9,16 @@
 #ifndef UITextField_hpp
 #define UITextField_hpp
 
-#include "GUIObject.hpp"
+#include "ofxINUIObject.hpp"
 
-namespace ofxInteractivo { namespace gui{
-    
+
 enum
 {
   CJS_TEXTFIELD_ALPHA,
   CJS_TEXTFIELD_NUMBERS
 };
 
-class UITextField : public GUIObject {
+class UITextField : public ofxINUIObject {
   
 public:
   UITextField();
@@ -57,6 +56,6 @@ private:
   string  range;
 };
 
-}}
+
 
 #endif /* UITextField_hpp */

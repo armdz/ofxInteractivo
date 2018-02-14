@@ -8,34 +8,33 @@
 
 #include "GUIButton.hpp"
 
-namespace ofxInteractivo { namespace gui{
 
-  GUIButton::GUIButton()
-  {
-  }
+GUIButton::GUIButton()
+{
+}
 
-  GUIButton::~GUIButton()
-  {
-    
-  }
+GUIButton::~GUIButton()
+{
 
-  void  GUIButton::setup(string _name,string _label)
-  {
+}
+
+void  GUIButton::setup(string _name,string _label)
+{
     set_obj_type(OBJ_UI_TYPE_BUTTON);
-    GUIObject::setup(_name);
+    ofxINUIObject::setup(_name);
     label = _label;
     label_bbox = VSUI::calculate_bbox(_label);
-  }
+}
 
-  void  GUIButton::init()
-  {
+void  GUIButton::init()
+{
     set_interactive(true);
     bang_pressed = false;
     dispatch_bang = false;
-  }
+}
 
-  void  GUIButton::behavior()
-  {
+void  GUIButton::behavior()
+{
     
     if(dispatch_bang)
       dispatch_bang = false;
@@ -50,12 +49,12 @@ namespace ofxInteractivo { namespace gui{
       dispatch_bang = false;
       bang_pressed = false;
     }
-  }
+}
 
-  void  GUIButton::draw()
-  {
-   
-    GUIObject::draw();
+void  GUIButton::draw()
+{
+
+    ofxINUIObject::draw();
     if(is_pressed())
     {
       ofSetColor(VSUI_COLOR_OVER);
@@ -75,11 +74,11 @@ namespace ofxInteractivo { namespace gui{
     ofDrawRectangle(0,0,getWidth(),getHeight());
     ofPopStyle();
     ofPopMatrix();
-  }
+}
 
-  bool  GUIButton::on_pressed()
-  {
+bool  GUIButton::on_pressed()
+{
     return dispatch_bang;
-  }
+}
 
-}}
+

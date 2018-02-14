@@ -9,8 +9,7 @@
 #include "APP.h"
 #include "ofxInteractivoConstants.h"
 
-namespace ofxInteractivo  {
-    
+
     // APP CONFIGS
     
     ofxJSONElement  APP::json_config;
@@ -20,10 +19,11 @@ namespace ofxInteractivo  {
     
     //  MODULES
     
-    ofxInteractivoHID   APP::hid;
+    ofxINHIDManager   APP::hid;
     ofxInteractivoFont  APP::font;
     ofxInteractivoColorPalette   APP::color;
     ofxInteractivoImages    APP::image;
+  //  VideoInputManager       APP::video_input;
 
     //  PUBLIC
 
@@ -112,4 +112,4 @@ namespace ofxInteractivo  {
     //  PRIVATES
   
 
-};
+

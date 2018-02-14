@@ -11,11 +11,11 @@
 
 #include "ofMain.h"
 
-class EMAbstract {
+class ofxINAbstract {
   
 public:
-    EMAbstract(){};
-    ~EMAbstract(){};
+    ofxINAbstract(){};
+    ~ofxINAbstract(){};
     bool    runing;
 protected:
     void    set_name(string _name){

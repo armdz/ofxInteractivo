@@ -6,9 +6,9 @@
 //
 //
 
-#include "EMOscillator.h"
+#include "ofxINOscillator.h"
 
-EMOscillator::EMOscillator()
+ofxINOscillator::ofxINOscillator()
 {
   acum = 0.0;
   vel = 0.0;
@@ -17,12 +17,12 @@ EMOscillator::EMOscillator()
   offset = 0.0;;
 }
 
-EMOscillator::~EMOscillator()
+ofxINOscillator::~ofxINOscillator()
 {
   
 }
 
-void EMOscillator::setup(string _name,float  _vel,EMOSCType  _type,float _offset)
+void ofxINOscillator::setup(string _name,float  _vel,EMOSCType  _type,float _offset)
 {
   set_name(_name);
   vel = _vel;
@@ -31,17 +31,17 @@ void EMOscillator::setup(string _name,float  _vel,EMOSCType  _type,float _offset
   acum = 0.0;
 }
 
-void  EMOscillator::start()
+void  ofxINOscillator::start()
 {
   runing = true;
 }
 
-void  EMOscillator::stop()
+void  ofxINOscillator::stop()
 {
   runing = false;
 }
 
-void EMOscillator::update()
+void ofxINOscillator::update()
 {
   if(runing){
     //value = type == EM::sin ? sin(offset+acum) : cos(offset+acum);
@@ -49,7 +49,7 @@ void EMOscillator::update()
   }
 }
 
-float EMOscillator::val()
+float ofxINOscillator::val()
 {
   return value;
 }

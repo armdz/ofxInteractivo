@@ -11,13 +11,13 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-#include "EMAbstract.h"
+#include "ofxINAbstract.h"
 
-class EMTimer : public EMAbstract
+class ofxINTimer : public ofxINAbstract
 {
 public:
-    EMTimer();
-    ~EMTimer();
+    ofxINTimer();
+    ~ofxINTimer();
     void  setup(string _name,float  _duration,int  _times);
     void  start();
     void  stop();

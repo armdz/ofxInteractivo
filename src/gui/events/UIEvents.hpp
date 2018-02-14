@@ -10,10 +10,9 @@
 #define UIEvents_hpp
 
 #include "UIConstants.h"
-#include "GUIObject.hpp"
+#include "ofxINUIObject.hpp"
 #include "ofxJSON.h"
 
-namespace ofxInteractivo { namespace gui{
 
 //  make custom event for every event type
 
@@ -23,7 +22,7 @@ public:
   UIEvents();
   ~UIEvents();
   
-  GUIObject* ui_object;
+  ofxINUIObject* ui_object;
   int         type;
   int         button; //  0 left,1 right
   
@@ -34,6 +33,6 @@ public:
 
 };
   
-}}
+
 
 #endif /* UIEvents_hpp */

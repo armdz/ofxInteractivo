@@ -8,8 +8,6 @@
 
 #include "UIList.hpp"
 
-namespace ofxInteractivo { namespace gui{
-
 UIList::UIList()
 {
   selected_item = -1;
@@ -114,4 +112,4 @@ vector<GUIButton*> UIList::get_items()
   return button_items;
 }
   
-}}
+

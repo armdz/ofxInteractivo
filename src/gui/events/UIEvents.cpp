@@ -8,7 +8,6 @@
 
 #include "UIEvents.hpp"
 
-namespace ofxInteractivo { namespace gui{
 
 ofEvent <UIEvents> UIEvents::events;
 
@@ -22,4 +21,4 @@ UIEvents::~UIEvents()
   
 }
 
-}}
+

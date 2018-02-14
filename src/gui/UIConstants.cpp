@@ -8,7 +8,6 @@
 
 #include "UIConstants.h"
 
-namespace ofxInteractivo { namespace gui{
 
 ofTrueTypeFont  VSUI::font;
 
@@ -39,4 +38,4 @@ bool VSUI::is_number(const std::string& s)
   return !is.fail() && is.eof();
 }
   
-}}
+

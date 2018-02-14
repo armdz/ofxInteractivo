@@ -10,14 +10,13 @@
 #define UIList_hpp
 
 #include <stdio.h>
-#include "GUIObject.hpp"
+#include "ofxINUIObject.hpp"
 #include "ofxJSON.h"
 #include "GUIButton.hpp"
 #include "UIEvents.hpp"
 
-namespace ofxInteractivo { namespace gui{
 
-class UIList : public GUIObject {
+class UIList : public ofxINUIObject {
   
 public:
   UIList();
@@ -37,6 +36,6 @@ private:
   
 };
 
-}}
+
   
 #endif /* UIList_hpp */

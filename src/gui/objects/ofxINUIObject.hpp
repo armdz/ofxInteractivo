@@ -13,19 +13,17 @@
 #include "ofMain.h"
 #include "UIConstants.h"
 #include "ofxJSON.h"
-#include "APP.h"
+#include "ofxINHIDEvent.h"
 
-namespace ofxInteractivo { namespace gui{
-
-class GUIObject : public ofRectangle {
+class ofxINUIObject : public ofRectangle {
 
 public:
-    GUIObject();
-    ~GUIObject();
+    ofxINUIObject();
+    ~ofxINUIObject();
     virtual void  setup(string _name);
     virtual void  set_name(string _name);
     virtual void  destroy();
-    void  set_parent(GUIObject  *_parent);
+    void  set_parent(ofxINUIObject  *_parent);
     void  set_draggable(bool  _val);
     void  update();
     virtual void  enable(bool _val);
@@ -33,8 +31,8 @@ public:
     void  set_layer(int _layer);
     void  set_obj_type(string _type);
     void  set_id(int _id);  //  unique object id inside de ui manager
-    void  add_child(GUIObject* _child);
-    void  remove_child(GUIObject* _child);
+    void  add_child(ofxINUIObject* _child);
+    void  remove_child(ofxINUIObject* _child);
     void  clear_childs();
     void  update_childs();
     void  draw_childs();
@@ -45,11 +43,13 @@ public:
     void  set_system_owned();
     void  set_deleteable(bool _val);
     void  set_selected(bool _val);
+   
+    //
     virtual ofxJSONElement  get_json();
     virtual void  init(){};
     virtual void  behavior(){};
     virtual void  draw();
-    virtual vector<GUIObject*> get_childs(){return childs;};
+    virtual vector<ofxINUIObject*> get_childs(){return childs;};
     string  get_name();
     bool    is_idle();
     bool    is_over();
@@ -66,12 +66,18 @@ public:
     int     get_id();
     string  print_status();
     string  get_obj_type();
-    GUIObject* has_object_over();
-    GUIObject* get_parent();
-    GUIObject* get_child_by(string _name);
+    ofxINUIObject* has_object_over();
+    ofxINUIObject* get_parent();
+    ofxINUIObject* get_child_by(string _name);
     ofxJSONElement  get_info();
 private:
-    GUIObject*    search_in_herarchy(GUIObject*  _parent);
+    //  events
+    void    hid_move(ofxINHIDEvent   &_e);
+    void    hid_pressed(ofxINHIDEvent   &_e);
+    void    hid_released(ofxINHIDEvent   &_e);
+
+    //
+    ofxINUIObject*    search_in_herarchy(ofxINUIObject*  _parent);
     string  name;
     string  obj_type;
     int     status;
@@ -88,14 +94,12 @@ private:
     bool    mouse_press_state;
     bool    is_deletable;
     bool    selected;
-    GUIObject *parent;
-    GUIObject *object_over;
+    ofxINUIObject *parent;
+    ofxINUIObject *object_over;
     ofPoint     initial_pos;  //  in case it has a parent, save the initial pos
     ofxJSONElement       info;  //  save raw json data
-    vector<GUIObject*>  childs;
+    vector<ofxINUIObject*>  childs;
 
 };
-
-}}
 
 #endif /* GUIObject_hpp */

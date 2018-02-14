@@ -10,7 +10,7 @@
 #define __dataViz__EMInterpolator__
 
 #include <stdio.h>
-#include "EMAbstract.h"
+#include "ofxINAbstract.h"
 #include "Quad.h"
 #include "Quart.h"
 #include "Quint.h"
@@ -23,11 +23,11 @@
 #include "Bounce.h"
 #include "Back.h"
 
-class EMInterpolator : public EMAbstract {
+class ofxINInterpolator : public ofxINAbstract {
   
 public:
-    EMInterpolator();
-    ~EMInterpolator();
+    ofxINInterpolator();
+    ~ofxINInterpolator();
     void  setup(string _name,float _init,float _final,float   _duration,float (*_type)(float,float,float,float),bool _loop = false);
     void  start();
     void  rewind();
@@ -39,7 +39,7 @@ public:
     float val();
     float normalized();
     bool  is_runing();
-    bool  is_reversed();
+    bool  is_reversed();    //  means that its rewinding
 private:
     float (*type)(float,float,float,float);
     bool  do_loop;

@@ -10,10 +10,11 @@
 #define ofxAPP_h
 
 #include "ofMain.h"
-#include "ofxInteractivoHID.h"
+#include "ofxINHIDManager.h"
 #include "ofxInteractivoFont.h"
 #include "ofxInteractivoColorPalette.h"
 #include "ofxInteractivoImages.h"
+#include "VideoInputManager.hpp"
 #include "ofxJSON.h"
 
 namespace ofxInteractivo  {
@@ -23,10 +24,11 @@ namespace ofxInteractivo  {
     public:
         static void init(string _name,int _output_width = 0,int _output_height = 0);
         
-        static ofxInteractivoHID   hid;
+        static ofxINHIDManager   hid;
         static ofxInteractivoFont  font;
         static ofxInteractivoColorPalette   color;
         static ofxInteractivoImages image;
+        static VideoInputManager    video_input;
         
         static int  width,height;
         static string name;

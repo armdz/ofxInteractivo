@@ -10,7 +10,6 @@
 #define UIConstants_h
 #include "ofMain.h"
 
-namespace ofxInteractivo { namespace gui{
 
 enum{
   GUIOBJECT_IDLE,
@@ -68,6 +67,6 @@ public:
   static ofTrueTypeFont  font;
 };
 
-}}
+
 
 #endif /* UIConstants_h */

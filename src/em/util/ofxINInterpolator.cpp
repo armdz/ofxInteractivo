@@ -6,9 +6,9 @@
 //
 //
 
-#include "EMInterpolator.h"
+#include "ofxINInterpolator.h"
 
-EMInterpolator::EMInterpolator()
+ofxINInterpolator::ofxINInterpolator()
 {
     normalized_value = 0.0;
     value = 0.0;
@@ -21,12 +21,12 @@ EMInterpolator::EMInterpolator()
     final_value = 0.0;
 }
 
-EMInterpolator::~EMInterpolator()
+ofxINInterpolator::~ofxINInterpolator()
 {
 
 }
 
-void  EMInterpolator::setup(string _name,float _init,float _final,float   _duration, float (*_type)(float,float,float,float),bool _loop)
+void  ofxINInterpolator::setup(string _name,float _init,float _final,float   _duration, float (*_type)(float,float,float,float),bool _loop)
 {
     set_name(_name);
     type = _type;
@@ -42,7 +42,7 @@ void  EMInterpolator::setup(string _name,float _init,float _final,float   _durat
     loop(_loop);
 }
 
-void  EMInterpolator::start()
+void  ofxINInterpolator::start()
 {
     if(!started){
         started = true;
@@ -55,7 +55,7 @@ void  EMInterpolator::start()
     }
 }
 
-void EMInterpolator::rewind()
+void ofxINInterpolator::rewind()
 {
     started = false;
     reverse = true;
@@ -66,13 +66,13 @@ void EMInterpolator::rewind()
     time = ofGetElapsedTimef();
 }
 
-void  EMInterpolator::stop()
+void  ofxINInterpolator::stop()
 {
     runing = false;
     started = false;
 }
 
-void  EMInterpolator::reset()
+void  ofxINInterpolator::reset()
 {
     normalized_value = 0.0;
     sample_norm = 0.0;
@@ -84,12 +84,12 @@ void  EMInterpolator::reset()
 }
 
 
-void  EMInterpolator::loop(bool _val)
+void  ofxINInterpolator::loop(bool _val)
 {
     do_loop = _val;
 }
 
-void  EMInterpolator::update()
+void  ofxINInterpolator::update()
 {
     do_bang = false;
     if(runing)
@@ -114,26 +114,26 @@ void  EMInterpolator::update()
     }
 }
 
-bool  EMInterpolator::bang()
+bool  ofxINInterpolator::bang()
 {
     return do_bang;
 }
 
-float EMInterpolator::val()
+float ofxINInterpolator::val()
 {
     return normalized_value == 0.0 ? init_value : ofMap(normalized_value, 0.0, 1.0, init_value, final_value);
 }
 
-float EMInterpolator::normalized()
+float ofxINInterpolator::normalized()
 {
     return normalized_value;
 }
 
-bool  EMInterpolator::is_runing()
+bool  ofxINInterpolator::is_runing()
 {
     return runing;
 }
-bool  EMInterpolator::is_reversed()
+bool  ofxINInterpolator::is_reversed()
 {
     return reverse;
 }

@@ -6,9 +6,9 @@
 //
 //
 
-#include "EMTimer.h"
+#include "ofxINTimer.h"
 
-EMTimer::EMTimer()
+ofxINTimer::ofxINTimer()
 {
   is_runing = false;
   do_bang = false;
@@ -16,12 +16,12 @@ EMTimer::EMTimer()
   norm_val = 0.0f;
 }
 
-EMTimer::~EMTimer()
+ofxINTimer::~ofxINTimer()
 {
   
 }
 
-void  EMTimer::setup(string _name,float  _duration,int  _times)
+void  ofxINTimer::setup(string _name,float  _duration,int  _times)
 {
     set_name(_name);
     duration = _duration;
@@ -29,7 +29,7 @@ void  EMTimer::setup(string _name,float  _duration,int  _times)
     norm_val = 0.0f;
 }
 
-void  EMTimer::start()
+void  ofxINTimer::start()
 {
     is_runing = true;
     do_bang = false;
@@ -38,14 +38,14 @@ void  EMTimer::start()
     ellapsed = ofGetElapsedTimef();
 }
 
-void  EMTimer::stop()
+void  ofxINTimer::stop()
 {
     is_runing = false;
     do_bang = false;
     norm_val = 0.0f;
 }
 
-void  EMTimer::update()
+void  ofxINTimer::update()
 {
     if(times_limit != -1 && (do_bang && times_counter == times_limit))
     {
@@ -67,32 +67,32 @@ void  EMTimer::update()
     }
 }
 
-void  EMTimer::set_duration(float _duration)
+void  ofxINTimer::set_duration(float _duration)
 {
     duration = _duration;
 }
 
-bool  EMTimer::bang()
+bool  ofxINTimer::bang()
 {
     return do_bang;
 }
 
-bool  EMTimer::runing()
+bool  ofxINTimer::runing()
 {
     return is_runing;
 }
 
-int   EMTimer::times()
+int   ofxINTimer::times()
 {
     return times_counter;
 }
 
-float EMTimer::val()
+float ofxINTimer::val()
 {
     return norm_val;
 }
 
-float EMTimer::get_duration()
+float ofxINTimer::get_duration()
 {
     return duration;
 }
