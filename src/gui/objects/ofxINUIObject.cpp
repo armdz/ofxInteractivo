@@ -29,7 +29,7 @@ void  ofxINUIObject::setup(string _name)
     id = -1;
     //
     layer = 0;
-    status = GUIOBJECT_IDLE;
+    status = INUIObject_Idle;
     draggable = false;
     is_deletable = true;
     parent = NULL;
@@ -111,9 +111,9 @@ void  ofxINUIObject::update()
       setY(parent->y+initial_pos.y);
     }
   }else{
-    status = GUIOBJECT_IDLE;
+    status = INUIObject_Idle;
   }
-    /*fix mouse_press_state = APP::hid.pressed();*/
+    
 }
 
 void  ofxINUIObject::update_childs()
@@ -246,9 +246,9 @@ void    ofxINUIObject::hid_move(ofxINHIDEvent   &_e)
 {
     if(inside(_e.pointer.x,_e.pointer.y))
     {
-        status = status == GUIOBJECT_PRESS ? GUIOBJECT_PRESS : GUIOBJECT_OVER;
+        status = status == INUIObject_Pressed ? INUIObject_Pressed : INUIObject_Over;
     }else{
-        status = GUIOBJECT_IDLE;
+        status = INUIObject_Idle;
     }
     
 }
@@ -256,9 +256,9 @@ void    ofxINUIObject::hid_move(ofxINHIDEvent   &_e)
 void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 {
     if(interactive){
-        if(inside(_e.pointer.x, _e.pointer.y) && status != GUIOBJECT_PRESS)
+        if(inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
         {
-            status = GUIOBJECT_PRESS;
+            status = INUIObject_Pressed;
         }
     }
 }
@@ -266,7 +266,7 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 void    ofxINUIObject::hid_released(ofxINHIDEvent   &_e)
 {
     if(interactive){
-        status = GUIOBJECT_RELEASED;
+        status = INUIObject_Released;
     }
 }
 
@@ -326,12 +326,12 @@ string  ofxINUIObject::get_name()
 
 bool    ofxINUIObject::is_idle()
 {
-  return status == GUIOBJECT_IDLE;
+  return status == INUIObject_Idle;
 }
 
 bool    ofxINUIObject::is_over()
 {
-  return status == GUIOBJECT_OVER;
+  return status == INUIObject_Over;
 }
 
 bool    ofxINUIObject::double_click()
@@ -387,43 +387,17 @@ ofxINUIObject*    ofxINUIObject::search_in_herarchy(ofxINUIObject*  _parent)
 
 ofxINUIObject* ofxINUIObject::has_object_over()
 {
-  /*
-  if(childs.size() > 0)
-  {
-    object_over = NULL;
-    int top_object_layer = -1;
-    for(int i=0;i<childs.size();i++)
-    {
-      if(childs.at(i)->is_over() && childs.at(i)->get_layer() > top_object_layer)
-      {
-        top_object_layer = childs.at(i)->get_layer();
-        object_over = childs.at(i);
-      }
-    }
-  }else{
-    if(is_over())
-    {
-      object_over = this;
-    }
-  }*/
-  
-  object_over = search_in_herarchy(this);
-/*  if(object_over != NULL)
-  {
-    cout << object_over->get_name() << endl;
-  }
-*/
-  return object_over;
+  return search_in_herarchy(this);
 }
 
 bool    ofxINUIObject::is_pressed()
 {
-  return status == GUIOBJECT_PRESS;
+  return status == INUIObject_Pressed;
 }
 
 bool    ofxINUIObject::is_released()
 {
-  return status == GUIOBJECT_RELEASED;
+  return status == INUIObject_Released;
 }
 
 bool    ofxINUIObject::is_draggable()

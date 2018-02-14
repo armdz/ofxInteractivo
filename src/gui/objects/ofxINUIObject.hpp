@@ -15,6 +15,15 @@
 #include "ofxJSON.h"
 #include "ofxINHIDEvent.h"
 
+enum ofxINUIObjectStates
+{
+    INUIObject_Idle,
+    INUIObject_Over,
+    INUIObject_Pressed,
+    INUIObject_Released,
+};
+
+
 class ofxINUIObject : public ofRectangle {
 
 public:
@@ -80,7 +89,7 @@ private:
     ofxINUIObject*    search_in_herarchy(ofxINUIObject*  _parent);
     string  name;
     string  obj_type;
-    int     status;
+    ofxINUIObjectStates     status;
     int     layer;
     int     id;
     int     prev_click_time;

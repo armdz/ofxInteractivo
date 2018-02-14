@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "ofxINUIObject.hpp"
 #include "ofxJSON.h"
-#include "GUIButton.hpp"
+#include "ofxINUIButton.hpp"
 #include "UIEvents.hpp"
 
 
@@ -26,11 +26,11 @@ public:
   void  draw();
   void  parse(ofxJSONElement  _data);
   void  clear();
-  vector<GUIButton*> get_items();
+  vector<ofxINUIButton*> get_items();
   ofxJSONElement  get_data();
 private:
   ofxJSONElement  data;
-  vector<GUIButton*> button_items;
+  vector<ofxINUIButton*> button_items;
   int selected_item;
   float min_width;
   

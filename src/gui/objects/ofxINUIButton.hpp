@@ -12,10 +12,10 @@
 #include <stdio.h>
 #include "ofxINUIObject.hpp"
 
-class GUIButton : public ofxINUIObject {
+class ofxINUIButton : public ofxINUIObject {
 public:
-  GUIButton();
-  ~GUIButton();
+  ofxINUIButton();
+  ~ofxINUIButton();
   void  setup(string _name,string _label);
   void  init();
   void  behavior();

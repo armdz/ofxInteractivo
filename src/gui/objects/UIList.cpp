@@ -83,7 +83,7 @@ void  UIList::parse(ofxJSONElement  _data)
   for(int i=0;i<data.size();i++)
   {
     //  label,id
-    GUIButton  *button = new GUIButton();
+    ofxINUIButton  *button = new ofxINUIButton();
     button->setup(_data[i]["id"].asString(), _data[i]["label"].asString());
     button->set(0,0,getWidth(),getHeight());
     button->setY(getHeight()+(i*getHeight()));
@@ -107,7 +107,7 @@ ofxJSONElement  UIList::get_data()
   return data;
 }
 
-vector<GUIButton*> UIList::get_items()
+vector<ofxINUIButton*> UIList::get_items()
 {
   return button_items;
 }

@@ -6,19 +6,19 @@
 //
 //
 
-#include "GUIButton.hpp"
+#include "ofxINUIButton.hpp"
 
 
-GUIButton::GUIButton()
+ofxINUIButton::ofxINUIButton()
 {
 }
 
-GUIButton::~GUIButton()
+ofxINUIButton::~ofxINUIButton()
 {
 
 }
 
-void  GUIButton::setup(string _name,string _label)
+void  ofxINUIButton::setup(string _name,string _label)
 {
     set_obj_type(OBJ_UI_TYPE_BUTTON);
     ofxINUIObject::setup(_name);
@@ -26,14 +26,14 @@ void  GUIButton::setup(string _name,string _label)
     label_bbox = VSUI::calculate_bbox(_label);
 }
 
-void  GUIButton::init()
+void  ofxINUIButton::init()
 {
     set_interactive(true);
     bang_pressed = false;
     dispatch_bang = false;
 }
 
-void  GUIButton::behavior()
+void  ofxINUIButton::behavior()
 {
     
     if(dispatch_bang)
@@ -51,7 +51,7 @@ void  GUIButton::behavior()
     }
 }
 
-void  GUIButton::draw()
+void  ofxINUIButton::draw()
 {
 
     ofxINUIObject::draw();
@@ -76,7 +76,7 @@ void  GUIButton::draw()
     ofPopMatrix();
 }
 
-bool  GUIButton::on_pressed()
+bool  ofxINUIButton::on_pressed()
 {
     return dispatch_bang;
 }
