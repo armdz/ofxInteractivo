@@ -195,7 +195,7 @@ void    ofxINHIDManager::update(ofEventArgs  &_args)
 		}
 	}
 		
-	if (type == INHID_Mouse) {
+	if (type == INHID_Mouse && pointers.size() > 0) {
 
 		x = pointers.at(0).x;
 		y = pointers.at(0).y;
