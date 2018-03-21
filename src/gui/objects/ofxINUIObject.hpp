@@ -33,6 +33,7 @@ public:
     virtual void  set_name(string _name);
     virtual void  destroy();
     void  set_parent(ofxINUIObject  *_parent);
+    void  delegate(bool _pressed);
     void  set_draggable(bool  _val);
     void  update();
     virtual void  enable(bool _val);
@@ -58,6 +59,7 @@ public:
     virtual void  init(){};
     virtual void  behavior(){};
     virtual void  draw();
+    virtual void  on_pressed_delegate(ofxINHIDEvent   &_e){};   //  for override the action of press
     virtual vector<ofxINUIObject*> get_childs(){return childs;};
     string  get_name();
     bool    is_idle();
@@ -79,7 +81,7 @@ public:
     ofxINUIObject* get_parent();
     ofxINUIObject* get_child_by(string _name);
     ofxJSONElement  get_info();
-private:
+protected:
     //  events
     void    hid_move(ofxINHIDEvent   &_e);
     void    hid_pressed(ofxINHIDEvent   &_e);
@@ -103,6 +105,7 @@ private:
     bool    mouse_press_state;
     bool    is_deletable;
     bool    selected;
+    bool    pressed_is_delegated;
     ofxINUIObject *parent;
     ofxINUIObject *object_over;
     ofPoint     initial_pos;  //  in case it has a parent, save the initial pos

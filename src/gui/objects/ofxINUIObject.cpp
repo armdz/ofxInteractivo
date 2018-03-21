@@ -11,7 +11,7 @@
 
 ofxINUIObject::ofxINUIObject()
 {
-  
+    pressed_is_delegated = false;
 }
 
 ofxINUIObject::~ofxINUIObject()
@@ -92,6 +92,11 @@ void  ofxINUIObject::set_draggable(bool  _val)
     draggable = false;
     ofLogNotice() << "Object with parent can not be dragged";
   }
+}
+
+void    ofxINUIObject::delegate(bool _pressed)
+{
+    pressed_is_delegated = _pressed;
 }
 
 void  ofxINUIObject::update()
@@ -258,7 +263,11 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
     if(interactive){
         if(inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
         {
-            status = INUIObject_Pressed;
+            if(pressed_is_delegated){
+                on_pressed_delegate(_e);
+            }else{
+                status = INUIObject_Pressed;
+            }
         }
     }
 }

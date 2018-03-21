@@ -12,6 +12,7 @@
 #include "ofxINObject.h"
 #include "ofxINUIObject.hpp"
 #include "ofxINUIButton.hpp"
+#include "ofxINUIImageButton.hpp"
 #include "APP.h"
 
 class Scene : public ofxINUIObject,private ofxINObject{
