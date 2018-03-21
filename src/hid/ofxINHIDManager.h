@@ -12,13 +12,23 @@
 #include "ofMain.h"
 #include "ofxINHIDPointer.h"
 
+
+enum ofxINHIDType
+{
+	INHID_Mouse,
+	INHID_Touch
+};
+
 class ofxINHIDManager : public ofPoint{
     
 public:
     ofxINHIDManager();
     ~ofxINHIDManager();
-    void    init();
+    void    init(ofxINHIDType	_type = INHID_Mouse);
+		void		setup_touch();
     void    update(ofEventArgs  &_args);
+		void		draw();
+		//	Mouse
     void    mouseMoved(ofMouseEventArgs &arg);
     void    mouseDragged(ofMouseEventArgs &arg);
     void    mousePressed(ofMouseEventArgs &arg);
@@ -26,13 +36,24 @@ public:
     void    mouseEntered(ofMouseEventArgs &arg);
     void    mouseExited(ofMouseEventArgs &arg);
     void    mouseScrolled(ofMouseEventArgs &arg);
+		//	Touch
+		#ifdef TARGET_WIN32 || TARGET_WIN64
+		void		touchDown(ofTouchEventArgs & touch);
+		void		touchMoved(ofTouchEventArgs & touch);
+		void		touchUp(ofTouchEventArgs & touch);
+		void		touchDoubleTap(ofTouchEventArgs & touch);
+		void		touchCancelled(ofTouchEventArgs & touch);
+		#endif
+		//
     int     pressed();
     bool    bang_pressed();
     bool    bang_released();
     vector<ofxINHIDPointer> *get_pointers();
 private:
-    vector<ofxINHIDPointer> pointers;
-    
+    vector<ofxINHIDPointer>				vec_pointers;
+		std::map<int, ofxINHIDPointer> pointers;
+
+		ofxINHIDType	type;
     int     is_pressed;
     bool    is_pressed_banged;
     bool    is_released;

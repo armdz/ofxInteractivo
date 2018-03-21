@@ -22,8 +22,7 @@ namespace ofxInteractivo  {
     class APP {
         
     public:
-        static void init(string _name,int _output_width = 0,int _output_height = 0);
-        
+        static void init(string _name,int _output_width = 0,int _output_height = 0,bool	 _touch = false);        
         static ofxINHIDManager   hid;
         static ofxInteractivoFont  font;
         static ofxInteractivoColorPalette   color;

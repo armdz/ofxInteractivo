@@ -75,7 +75,7 @@ public:
     bool    is_selected();
     int     get_layer();
     int     get_id();
-    string  print_status();
+    void	  print_status();
     string  get_obj_type();
     ofxINUIObject* has_object_over();
     ofxINUIObject* get_parent();
@@ -96,6 +96,7 @@ protected:
     int     id;
     int     prev_click_time;
     int     child_index_to_delete;
+		int			hid_pointer_id;
     bool    draggable;
     bool    is_enable;
     bool    do_double_click;

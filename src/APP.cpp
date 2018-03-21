@@ -26,8 +26,9 @@ ofxInteractivoImages    APP::image;
 
 //  PUBLIC
 
-void    APP::init(string _name,int _output_width,int _output_height)
+void    APP::init(string _name,int _output_width,int _output_height,bool _touch)
 {
+		
     if(json_config.open("config.json")){
         if(json_config["config"] != Json::nullValue)
         {
@@ -53,7 +54,7 @@ void    APP::init(string _name,int _output_width,int _output_height)
         height = ofGetHeight();
     }
     //
-    hid.init();
+    hid.init(_touch ? INHID_Touch : INHID_Mouse);
     image.init();
 }
 

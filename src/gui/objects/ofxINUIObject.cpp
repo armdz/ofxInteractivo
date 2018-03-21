@@ -12,6 +12,7 @@
 ofxINUIObject::ofxINUIObject()
 {
     pressed_is_delegated = false;
+		hid_pointer_id = -1;
 }
 
 ofxINUIObject::~ofxINUIObject()
@@ -263,6 +264,7 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
     if(interactive){
         if(inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
         {
+						hid_pointer_id = _e.pointer.id;
             if(pressed_is_delegated){
                 on_pressed_delegate(_e);
             }else{
@@ -274,14 +276,16 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 
 void    ofxINUIObject::hid_released(ofxINHIDEvent   &_e)
 {
-    if(interactive){
+
+    if(interactive && _e.pointer.id == hid_pointer_id){
+				hid_pointer_id = -1;
         status = INUIObject_Released;
     }
 }
 
 //
 
-string  ofxINUIObject::print_status()
+void  ofxINUIObject::print_status()
 {
   string _status = "";
   switch(status)
