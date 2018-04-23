@@ -37,17 +37,18 @@ public:
     void    mouseExited(ofMouseEventArgs &arg);
     void    mouseScrolled(ofMouseEventArgs &arg);
 		//	Touch
-		#ifdef TARGET_WIN32 || TARGET_WIN64
+		//#ifdef TARGET_WIN32 || TARGET_WIN64
 		void		touchDown(ofTouchEventArgs & touch);
 		void		touchMoved(ofTouchEventArgs & touch);
 		void		touchUp(ofTouchEventArgs & touch);
 		void		touchDoubleTap(ofTouchEventArgs & touch);
 		void		touchCancelled(ofTouchEventArgs & touch);
-		#endif
+		//#endif
 		//
     int     pressed();
     bool    bang_pressed();
     bool    bang_released();
+    ofxINHIDPointer         get_with_id(int _id);
     vector<ofxINHIDPointer> *get_pointers();
 private:
     vector<ofxINHIDPointer>				vec_pointers;

@@ -39,8 +39,16 @@ void    ofxInteractivoImages::init()
     lost_image.update();
     fbo_lost_image.clear();
     //
+    
     ofAddListener(ofEvents().update, this, &ofxInteractivoImages::update);
     
+    //  get global images
+    
+    ofDirectory dir("global_imgs");
+    if(dir.exists())
+    {
+        scan("global_imgs", GLOBAL_LIBRARY_NAME);
+    }
 }
 
 void    ofxInteractivoImages::scan(string _folder_path,string _library_name)
@@ -93,7 +101,24 @@ void    ofxInteractivoImages::update(ofEventArgs &e)
     
 }
 
+//  Drawing
+
+void    ofxInteractivoImages::draw_centered(ofImage &_image,float _scale)
+{
+    ofPushMatrix();
+    ofScale(_scale,_scale);
+    _image.draw(-_image.getWidth()*.5, -_image.getHeight()*.5);
+    ofPopMatrix();
+}
+
+
 //
+
+//  for global images, scope : all app
+ofImage ofxInteractivoImages::get(string _image_name)
+{
+    return get(GLOBAL_LIBRARY_NAME,_image_name);
+}
 
 ofImage ofxInteractivoImages::get(string _library_name,string _image_name)
 {
@@ -112,7 +137,7 @@ ofImage ofxInteractivoImages::get(string _library_name,string _image_name)
     }
 }
 
-ofxInteractivoImageLibrary  ofxInteractivoImages::get(string _library_name)
+ofxInteractivoImageLibrary  ofxInteractivoImages::get_library(string _library_name)
 {
     return libraries.at(_library_name);
 }

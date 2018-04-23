@@ -18,17 +18,32 @@ enum ofxINHIDPointerState
     HIDPointerState_Released
 };
 
-class ofxINHIDPointer : public ofPoint{
+class ofxINHIDPointer {
     
 public:
     ofxINHIDPointer(){
         state = HIDPointerState_Idle;
         frame_stamp = 0;
+        x=px=y=py=0.0f;
     };
     ~ofxINHIDPointer(){
         
     };
+    
+    void    set(float _x,float _y)
+    {
+        px = x;
+        py = y;
+        x = _x;
+        y = _y;
+        angle = atan2(py-y,px-x);
+    }
+    
     ofxINHIDPointerState    state;
+    ofPoint prev;
+    float angle;
+    float x,y;
+    float px,py;
     int frame_stamp;
     int id;
 };
