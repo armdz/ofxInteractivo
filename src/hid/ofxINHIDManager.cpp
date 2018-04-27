@@ -182,6 +182,7 @@ void    ofxINHIDManager::update(ofEventArgs  &_args)
                 it++;
         }
     }
+    
 	//
 
 	for (auto &pointer : pointers)
