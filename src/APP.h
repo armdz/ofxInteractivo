@@ -50,6 +50,10 @@ namespace ofxInteractivo  {
         static  void    push_center();
         static  void    pop_center();
         static  void    show_fps();
+        
+        static  void    setPropertie(string _id,float _val);
+        static  float   getPropertie(string _id);
+        static  map<string,float>   floatProperties;
 
     private:
         

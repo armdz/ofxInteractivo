@@ -34,6 +34,7 @@ public:
     void  stop();
     void  reset();
     void  loop(bool _val);
+    void  setDuration(float _val);
     void  update();
     bool  bang();
     float val();

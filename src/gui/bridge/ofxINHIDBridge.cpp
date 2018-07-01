@@ -24,20 +24,22 @@ void    ofxINHIDBridge::setup(vector<ofxINHIDPointer> *_pointers)
 
 void    ofxINHIDBridge::update()
 {
-    for(auto pointer : *pointers)
-    {
-        
-        dispatch_move(&pointer);
-        
-        switch (pointer.state) {
-            case HIDPointerState_Pressed:
-                dispatch_pressed(&pointer);
-                break;
-            case HIDPointerState_Released:
-                dispatch_released(&pointer);
-                break;
-            default:
-                break;
+    if(pointers != NULL){
+        for(auto pointer : *pointers)
+        {
+            
+            dispatch_move(&pointer);
+            
+            switch (pointer.state) {
+                case HIDPointerState_Pressed:
+                    dispatch_pressed(&pointer);
+                    break;
+                case HIDPointerState_Released:
+                    dispatch_released(&pointer);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

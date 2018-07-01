@@ -114,6 +114,11 @@ void  ofxINInterpolator::update()
     }
 }
 
+void  ofxINInterpolator::setDuration(float _val)
+{
+    duration_bkp = duration = _val;
+}
+
 bool  ofxINInterpolator::bang()
 {
     return do_bang;

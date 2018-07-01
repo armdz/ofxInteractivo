@@ -21,9 +21,8 @@ Scene::~Scene()
 void    Scene::setup(string _name)
 {
     name = _name;
-    ofxINUIObject::setup(name);
     APP::image.scan("scenes/" + name, name);
-
+    ofxINUIObject::setup(name);
 }
 
 void    Scene::update()

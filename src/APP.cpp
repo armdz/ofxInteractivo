@@ -15,6 +15,7 @@ ofxJSONElement  APP::json_config;
 int APP::width;
 int APP::height;
 string APP::name;
+map<string,float>   APP::floatProperties;
 
 //  MODULES
 
@@ -22,6 +23,8 @@ ofxINHIDManager   APP::hid;
 ofxInteractivoFont  APP::font;
 ofxInteractivoColorPalette   APP::color;
 ofxInteractivoImages    APP::image;
+
+
 //  VideoInputManager       APP::video_input;
 
 //  PUBLIC
@@ -107,6 +110,18 @@ void    APP::show_fps()
 {
     ofSetColor(255);
     ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(),2), 20, 20);
+}
+
+//
+
+void    APP::setPropertie(string _id,float _val)
+{
+    floatProperties.insert(std::pair<string,float>(_id,_val));
+}
+
+float   APP::getPropertie(string _id)
+{
+    return  floatProperties.at(_id);
 }
 
 //  PRIVATES

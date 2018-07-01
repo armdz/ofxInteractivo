@@ -21,6 +21,7 @@ public:
     Scene();
     ~Scene();
     void    setup(string _name);
+    virtual void    sceneSetup(){};
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided

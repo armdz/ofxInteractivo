@@ -122,6 +122,9 @@ ofImage ofxInteractivoImages::get(string _image_name)
 
 ofImage ofxInteractivoImages::get(string _library_name,string _image_name)
 {
+    
+    //cout << _library_name << " " << _image_name << "    =    " << libraries.count(_library_name) << endl;
+    
     if(libraries.count(_library_name) == 0){
         return lost_image;
     }else{

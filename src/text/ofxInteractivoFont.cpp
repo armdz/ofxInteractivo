@@ -24,7 +24,7 @@ void ofxInteractivoFont::add(string _font_name,string _file_path,float _size)
 {
     if(fonts.count(_font_name) == 0){
         ofTrueTypeFont*  _font = new ofTrueTypeFont();
-        _font->load(_file_path, _size,true,true,true,false,96);
+        _font->load(_file_path, _size,true,true,false,0.0,96);
         fonts.insert(std::pair<string, ofTrueTypeFont& >(_font_name,*_font));
     }
 }
@@ -61,6 +61,7 @@ string      ofxInteractivoFont::text_for_width(string _font_name,string _text,fl
         if(i != 0) line = line + " ";
         line = line + part;
         float w = font.stringWidth(line);
+        
         if (w < _width) {
             f_text += part + " ";
         }
