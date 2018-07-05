@@ -101,6 +101,38 @@ void    ofxInteractivoImages::update(ofEventArgs &e)
     
 }
 
+//  SVG
+//void    loadShapes(string _path,string _name);
+
+void ofxInteractivoImages::loadShapes(string _path,string _name)
+{
+    
+    ofxSVG  file;
+    file.load(_path);
+    
+    shapes.insert(pair<string,ofxINSvg>(_name,ofxINSvg()));
+    for(int i=0;i<file.getNumPath();i++)
+    {
+        shapes.at(_name).shapes.push_back(file.getPathAt(i));
+    }
+    
+}
+
+
+void    ofxInteractivoImages::dumpShapes(string _libName,vector<ofPath>   &_dest)
+{
+    for(int i=0;i<shapes.at(_libName).shapes.size();i++)
+    {
+        _dest.push_back(shapes.at(_libName).shapes.at(i));
+    }
+}
+
+ofPath  ofxInteractivoImages::getShape(string _libName,int    _index)
+{
+    return shapes.at(_libName).shapes.at(_index);
+}
+
+
 //  Drawing
 
 void    ofxInteractivoImages::draw_centered(ofImage &_image,float _scale)
@@ -110,6 +142,8 @@ void    ofxInteractivoImages::draw_centered(ofImage &_image,float _scale)
     _image.draw(-_image.getWidth()*.5, -_image.getHeight()*.5);
     ofPopMatrix();
 }
+
+
 
 
 //
