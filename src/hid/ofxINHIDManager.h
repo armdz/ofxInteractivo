@@ -12,7 +12,6 @@
 #include "ofMain.h"
 #include "ofxINHIDPointer.h"
 
-
 enum ofxINHIDType
 {
 	INHID_Mouse,

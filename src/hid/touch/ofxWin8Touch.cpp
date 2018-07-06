@@ -5,6 +5,9 @@
  * Created by Robert Xiao on August 24, 2015.
  */
 
+
+#ifdef TARGET_WIN32 || TARGET_WIN64
+
 #pragma once
 #ifndef _WIN32_WINNT
 #define _WIN32_WINNT _WIN32_WINNT_WIN8
@@ -187,3 +190,5 @@ void ofxWin8TouchSetup() {
 
 	prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
 }
+
+#endif
