@@ -30,7 +30,8 @@ public:
 
     ofColor     get(string _name);
     ofFloatColor get(string _paletteName,string _colorName);
-    
+    ofFloatColor get(string _paletteName,int    _index);
+
     ofColor get(int _index);
     ofColor get_random();
     ofFloatColor    getRandomFrom(string _paletteName);

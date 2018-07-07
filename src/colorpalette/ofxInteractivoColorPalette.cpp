@@ -75,6 +75,13 @@ ofFloatColor    ofxInteractivoColorPalette::getRandomFrom(string _paletteName)
     return item->second;
 }
 
+ofFloatColor ofxInteractivoColorPalette::get(string _paletteName,int    _index)
+{
+    map<string,ofFloatColor>::iterator item = palettes.at(_paletteName).colors.begin();
+    std::advance(item, _index);
+    return item->second;
+}
+
 int     ofxInteractivoColorPalette::count()
 {
     return palette.size();
