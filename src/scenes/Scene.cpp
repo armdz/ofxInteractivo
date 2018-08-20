@@ -25,11 +25,11 @@ void    Scene::setup(string _name)
     ofxINUIObject::setup(name);
 }
 
-void    Scene::update()
+void    Scene::pUpdate()
 {
     ofxINUIObject::update();
     ofxINObject::update();
-    custom_update();
+    update();
 }
 
 ofImage  Scene::image(string _name)

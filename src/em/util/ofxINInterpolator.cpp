@@ -37,9 +37,15 @@ void  ofxINInterpolator::setup(string _name,float _init,float _final,float   _du
     normalized_value = 0.0;
     sample_norm = 0.0;
     started = false;
-    value = 0.0f;
+    value = init_value;
     runing = false;
     loop(_loop);
+}
+
+void  ofxINInterpolator::setRange(float _init,float _end)
+{
+    init_value = _init;
+    final_value = _end;
 }
 
 void  ofxINInterpolator::start()
@@ -51,6 +57,7 @@ void  ofxINInterpolator::start()
         do_bang = false;
         sample_norm = normalized_value;
         duration = (1.0-sample_norm)*duration_bkp;
+        value = init_value;
         time = ofGetElapsedTimef();
     }
 }
@@ -61,6 +68,7 @@ void ofxINInterpolator::rewind()
     reverse = true;
     runing = true;
     do_bang = false;
+    value = final_value;
     sample_norm = normalized_value;
     duration = sample_norm*duration_bkp;
     time = ofGetElapsedTimef();
@@ -76,7 +84,7 @@ void  ofxINInterpolator::reset()
 {
     normalized_value = 0.0;
     sample_norm = 0.0;
-    value = 0.0;
+    value = init_value;
     runing = false;
     do_bang = false;
     reverse = false;
@@ -102,11 +110,14 @@ void  ofxINInterpolator::update()
           normalized_value = type(current_time, sample_norm, 1.0, duration);
         }
         normalized_value = ofClamp(normalized_value, 0.0, 1.0);
+        value = ofMap(normalized_value, 0.0, 1.0, init_value, final_value,true);
         if(current_time >= duration)
         {
           runing = false;
           normalized_value = reverse ? 0.0 : 1.0;
+            value = reverse ? init_value : final_value;
           do_bang = true;
+         
           if(do_loop){
             start();
           }
@@ -126,7 +137,10 @@ bool  ofxINInterpolator::bang()
 
 float ofxINInterpolator::val()
 {
-    return normalized_value == 0.0 ? init_value : ofMap(normalized_value, 0.0, 1.0, init_value, final_value);
+    return value;
+   // return norma
+    /*
+    return normalized_value == 0.0 ? init_value : ofMap(normalized_value, 0.0, 1.0, init_value, final_value,true);*/
 }
 
 float ofxINInterpolator::normalized()

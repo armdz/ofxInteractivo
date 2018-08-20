@@ -1,33 +1,32 @@
 //
-//  GUIManager.cpp
+//  ofxINGUIManager.cpp
 //  Cajas
 //
 //  Created by lolo on 11/22/16.
 //
 //
 
-#include "GUIManager.hpp"
+#include "ofxINGUIManager.h"
 
-
-GUIManager::GUIManager()
+ofxINGUIManager::ofxINGUIManager()
 {
   
 }
 
-GUIManager::~GUIManager()
+ofxINGUIManager::~ofxINGUIManager()
 {
   
 }
 
-void  GUIManager::setup()
+void  ofxINGUIManager::setup()
 {
   
   VSUI::init();
   
-  ofAddListener(ofEvents().mousePressed, this, &GUIManager::on_mouse_pressed);
-  ofAddListener(ofEvents().mouseReleased, this, &GUIManager::on_mouse_released);
-  ofAddListener(ofEvents().mouseDragged, this, &GUIManager::on_mouse_dragged);
-  ofAddListener(ofEvents().keyPressed,this, &GUIManager::on_key_pressed);
+  ofAddListener(ofEvents().mousePressed, this, &ofxINGUIManager::on_mouse_pressed);
+  ofAddListener(ofEvents().mouseReleased, this, &ofxINGUIManager::on_mouse_released);
+  ofAddListener(ofEvents().mouseDragged, this, &ofxINGUIManager::on_mouse_dragged);
+  ofAddListener(ofEvents().keyPressed,this, &ofxINGUIManager::on_key_pressed);
   
   prev_click_time = ofGetElapsedTimeMillis();
   
@@ -50,18 +49,18 @@ void  GUIManager::setup()
   
 }
 
-void  GUIManager::set_max_id(int _max_id)
+void  ofxINGUIManager::set_max_id(int _max_id)
 {
   max_id = _max_id;
   id_count = max_id;
 }
 
-void  GUIManager::add(ofxINUIObject *_object)
+void  ofxINGUIManager::add(ofxINUIObject *_object)
 {
   add_in_order(_object);
 }
 
-void  GUIManager::add_in_order(ofxINUIObject *_object)
+void  ofxINGUIManager::add_in_order(ofxINUIObject *_object)
 {
   if(_object->is_system_owned())
   {
@@ -85,7 +84,7 @@ void  GUIManager::add_in_order(ofxINUIObject *_object)
   
 }
 
-void  GUIManager::update()
+void  ofxINGUIManager::update()
 {
 
   
@@ -177,7 +176,7 @@ void  GUIManager::update()
  
 }
 
-void  GUIManager::draw()
+void  ofxINGUIManager::draw()
 {
   for(int i=0;i<objects.size();i++)
   {
@@ -196,7 +195,7 @@ void  GUIManager::draw()
   
 }
 
-void  GUIManager::clear()
+void  ofxINGUIManager::clear()
 {
   
 
@@ -218,7 +217,7 @@ void  GUIManager::clear()
   
 }
 
-ofxINUIObject*   GUIManager::get_object_by(int _id)
+ofxINUIObject*   ofxINGUIManager::get_object_by(int _id)
 {
   ofxINUIObject* ret = NULL;
   int   i = 0;
@@ -233,7 +232,7 @@ ofxINUIObject*   GUIManager::get_object_by(int _id)
   return ret;
 }
   
-int   GUIManager::get_object_index(ofxINUIObject*  _object)
+int   ofxINGUIManager::get_object_index(ofxINUIObject*  _object)
 {
   int   ret = -1;
   int   i = 0;
@@ -248,7 +247,7 @@ int   GUIManager::get_object_index(ofxINUIObject*  _object)
   return ret;
 }
 
-void  GUIManager::clear_list_of_selection()
+void  ofxINGUIManager::clear_list_of_selection()
 {
   for(int i=0;i<selected_objects.size();i++){
     selected_objects.at(i)->set_selected(false);
@@ -259,7 +258,7 @@ void  GUIManager::clear_list_of_selection()
 
 //  Generate JSON of the nodes to save files
 
-ofxJSONElement  GUIManager::get_json()
+ofxJSONElement  ofxINGUIManager::get_json()
 {
   ofxJSONElement  ret_json;
   for(int i=0;i<objects.size();i++)
@@ -275,7 +274,7 @@ ofxJSONElement  GUIManager::get_json()
 
 //
 
-void  GUIManager::on_mouse_pressed(ofMouseEventArgs &e)
+void  ofxINGUIManager::on_mouse_pressed(ofMouseEventArgs &e)
 {
   
   if(e.button == 0)
@@ -320,13 +319,13 @@ void  GUIManager::on_mouse_pressed(ofMouseEventArgs &e)
   }
 }
   
-void  GUIManager::on_mouse_released(ofMouseEventArgs &e)
+void  ofxINGUIManager::on_mouse_released(ofMouseEventArgs &e)
 {
   draggin_worksspace_setted = false;
 
 }
   
-void  GUIManager::on_mouse_dragged(ofMouseEventArgs &e)
+void  ofxINGUIManager::on_mouse_dragged(ofMouseEventArgs &e)
 {
  /*
   if(e.button == 0){
@@ -384,7 +383,7 @@ void  GUIManager::on_mouse_dragged(ofMouseEventArgs &e)
   
 }
   
-void  GUIManager::on_key_pressed(ofKeyEventArgs &e)
+void  ofxINGUIManager::on_key_pressed(ofKeyEventArgs &e)
 {
   if(e.keycode == 259)
   {

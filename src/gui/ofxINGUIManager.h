@@ -6,21 +6,21 @@
 //
 //
 
-#ifndef UIManager_hpp
-#define UIManager_hpp
+#ifndef ofxINGUIManager_h
+#define ofxINGUIManager_h
 
 #include <stdio.h>
-#include "UIConstants.h"
 #include "ofxINUIObject.hpp"
+#include "UIConstants.h"
 #include "UITextField.hpp"
 #include "UIEvents.hpp"
 #include "UIList.hpp"
 
-class GUIManager
-{
+class ofxINGUIManager {
 public:
-  GUIManager();
-  ~GUIManager();
+  ofxINGUIManager();
+  ~ofxINGUIManager();
+    
   void  setup();
   void  set_max_id(int _max_id);
   void  add(ofxINUIObject *_object);
@@ -72,4 +72,4 @@ private:
     
 };
 
-#endif /* UIManager_hpp */
+#endif /* ofxINGUIManager */

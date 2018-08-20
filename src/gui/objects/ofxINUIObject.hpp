@@ -45,7 +45,7 @@ public:
     void  remove_child(ofxINUIObject* _child);
     void  clear_childs();
     void  update_childs();
-    void  draw_childs();
+    void  drawChilds();
     void  childs_behavior();
     void  set_interactive(bool _val);
     void  set_visible(bool  _val);

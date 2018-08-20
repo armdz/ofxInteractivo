@@ -149,12 +149,12 @@ void  ofxINUIObject::draw()
   if(visible){
     ofSetColor(VSUI_COLOR_IDLE);
     ofDrawRectangle(*this);
-    draw_childs();
+    drawChilds();
   }
 
 }
 
-void  ofxINUIObject::draw_childs()
+void  ofxINUIObject::drawChilds()
 {
   if(visible){
     for(int i=0;i<childs.size();i++)
@@ -264,7 +264,7 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
     if(interactive){
         if(inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
         {
-						hid_pointer_id = _e.pointer.id;
+            hid_pointer_id = _e.pointer.id;
             if(pressed_is_delegated){
                 on_pressed_delegate(_e);
             }else{

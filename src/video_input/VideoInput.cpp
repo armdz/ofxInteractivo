@@ -7,7 +7,6 @@
 
 #include "VideoInput.hpp"
 
-namespace ofxInteractivo{
 
 VideoInput::VideoInput()
 {
@@ -35,7 +34,5 @@ void    VideoInput::update()
 void    VideoInput::draw()
 {
     custom_draw();
-}
-
 }
 

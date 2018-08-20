@@ -11,8 +11,6 @@
 #include "ofMain.h"
 #include "VideoInput.hpp"
 
-using namespace ofxInteractivo;
-namespace ofxInteractivo {
 
 class VideoInputManager {
     
@@ -26,8 +24,5 @@ public:
 private:
     std::map<string,VideoInput*>  inputs;
 };
-
-}
-
 
 #endif /* VideoInputManager_hpp */

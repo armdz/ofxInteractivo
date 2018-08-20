@@ -65,7 +65,7 @@ void  UIList::behavior()
 
 void  UIList::draw()
 {
-  draw_childs();
+  drawChilds();
 }
 
 void  UIList::parse(ofxJSONElement  _data)

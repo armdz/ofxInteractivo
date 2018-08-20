@@ -8,7 +8,6 @@
 
 #include "APP.h"
 #include "ofxInteractivoConstants.h"
-
 // APP CONFIGS
 
 ofxJSONElement  APP::json_config;
@@ -68,19 +67,34 @@ ofxJSONElement  APP::config()
     return json_config;
 }
 
-int     APP::config_i(string _key_name)
+int     APP::getInt(string _key_name)
 {
     return json_config[_key_name].asInt();
 }
 
-float   APP::config_f(string _key_name)
+float   APP::getFloat(string _key_name)
 {
     return json_config[_key_name].asFloat();
 }
 
-string  APP::config_s(string _key_name)
+string  APP::getString(string _key_name)
 {
     return json_config[_key_name].asString();
+}
+
+void    APP::setInt(string _name,int _val)
+{
+    json_config[_name] = _val;
+}
+
+void    APP::setFloat(string _name,float _val)
+{
+    json_config[_name] = _val;
+}
+
+void    APP::setString(string _name,string _val)
+{
+    json_config[_name] = _val;
 }
 
 //
@@ -95,18 +109,18 @@ void    APP::background(string   _color_name)
     ofBackground(color.get(_color_name));
 }
 
-void    APP::push_center()
+void    APP::pushCenter()
 {
     ofPushMatrix();
     ofTranslate(width*.5f, height*.5f);
 }
 
-void    APP::pop_center()
+void    APP::popCenter()
 {
     ofPopMatrix();
 }
 
-void    APP::show_fps()
+void    APP::showFps()
 {
     ofSetColor(255);
     ofDrawBitmapStringHighlight(ofToString(ofGetFrameRate(),2), 20, 20);

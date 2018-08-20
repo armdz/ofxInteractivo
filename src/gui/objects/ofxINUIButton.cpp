@@ -66,6 +66,8 @@ void  ofxINUIButton::draw()
     ofPushMatrix();
     ofTranslate(0, getHeight()/2);
     ofTranslate(UI_FONT_SIZE, (label_bbox.getHeight()/2));
+    
+    
     //VSUI::font.drawString(label, 0, 0);
     ofPopMatrix();
     ofPushStyle();

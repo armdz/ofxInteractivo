@@ -40,6 +40,11 @@ void ofxInteractivoFont::draw_centered(string _font_name,string _text)
     fonts.at(_font_name).drawString(_text,-box.getWidth()/2, box.getHeight()/2);
 }
 
+void ofxInteractivoFont::clear()
+{
+    fonts.clear();
+}
+
 ofTrueTypeFont& ofxInteractivoFont::get(string _font_name)
 {
     return fonts.at(_font_name);
@@ -70,6 +75,7 @@ string      ofxInteractivoFont::text_for_width(string _font_name,string _text,fl
             line = part + " ";
         }
     }
+    //sf_text +=parts.at(parts.size()-1);
     return f_text;
 }
 
