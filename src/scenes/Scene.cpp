@@ -23,6 +23,8 @@ void    Scene::setup(string _name)
     name = _name;
     APP::image.scan("scenes/" + name, name);
     ofxINUIObject::setup(name);
+		setEnable(true);
+		onSetup();
 }
 
 void    Scene::pUpdate()

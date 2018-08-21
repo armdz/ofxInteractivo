@@ -9,7 +9,7 @@
 #define SceneManager_h
 
 #include "Scene.h"
-#include "ofxINGUIManager.h"
+#include "ofxINUIManager.h"
 #include "ofxInteractivoConstants.h"
 #include "ofxINHIDBridge.hpp"
 #include "ofxINHIDPointer.h"
@@ -24,8 +24,8 @@ public:
     void    update(ofEventArgs  &_args);
     void    draw(ofEventArgs  &_args);
 private:
-    ofxINGUIManager      gui;
-    ofxINHIDBridge  hid_bridge;
+    ofxINUIManager      gui;
+    ofxINHIDBridge			hid_bridge;
     map<string,Scene* >    scenes;
     
 };

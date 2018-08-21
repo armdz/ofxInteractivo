@@ -28,17 +28,19 @@ public:
     void add(string _paletteName,string _colorName,ofFloatColor _newColor);
     void add(string _paletteName,string _colorName,int          _newColor);
 
-    ofColor      get(string _name);
+		ofFloatColor&				get(string _name);
+		ofFloatColor&				get(int _index);
+
+		ofxINColorPalette	getPallete(string _name);
     ofFloatColor get(string _paletteName,string _colorName);
     ofFloatColor get(string _paletteName,int    _index);
 
-    ofColor     get(int _index);
     ofColor     get_random();
     ofFloatColor    getRandomFrom(string _paletteName);
     int     count();
 private:
     std::map<std::string, ofxINColorPalette>    palettes;
-    std::map<std::string, ofColor> palette;
+    std::map<std::string, ofFloatColor> palette;
     vector<string> color_names;
 
 };

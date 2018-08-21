@@ -11,6 +11,14 @@
 
 ofxINUIButton::ofxINUIButton()
 {
+	delegate(true);
+	skin = ofxINUI::skin;
+	bangPressed = false;
+	dispatchBang = false;
+	isToggle = false;
+	val = false;
+	dispatchBang = false;
+	dispatchFrame = -1;
 }
 
 ofxINUIButton::~ofxINUIButton()
@@ -18,69 +26,98 @@ ofxINUIButton::~ofxINUIButton()
 
 }
 
-void  ofxINUIButton::setup(string _name,string _label)
+void  ofxINUIButton::setup(string _name,string _label, float _x, float _y, float _w, float _h)
 {
+		ofxINUIObject::setup(_name);
+		setPosition(_x, _y);
+		setSize(_w, _h);
     set_obj_type(OBJ_UI_TYPE_BUTTON);
-    ofxINUIObject::setup(_name);
     label = _label;
-    label_bbox = VSUI::calculate_bbox(_label);
+		labelBox = APP::font.getBitmapBox(label);
 }
 
-void  ofxINUIButton::init()
+void	ofxINUIButton::setAsToggle(bool _val)
 {
-    set_interactive(true);
-    bang_pressed = false;
-    dispatch_bang = false;
+	isToggle = _val;
+}
+
+void	ofxINUIButton::setColor(ofFloatColor _color)
+{
+	skin.idle = _color;
+	_color.setBrightness(.5);
+	skin.pressed = _color;
 }
 
 void  ofxINUIButton::behavior()
 {
-    
-    if(dispatch_bang)
-      dispatch_bang = false;
-    if(is_pressed())
-    {
-      if(!bang_pressed)
-      {
-        bang_pressed = true;
-        dispatch_bang = true;
-      }
-    }else{
-      dispatch_bang = false;
-      bang_pressed = false;
-    }
+
+	if (dispatchBang && ofGetFrameNum() > dispatchFrame)
+	{
+		dispatchBang = false;
+		dispatchFrame = -1;
+	}
+	if (!isToggle) {
+		if (!dispatchBang && !APP::hid.pressed()) {
+			val = false;
+		}
+	}
+
 }
 
-void  ofxINUIButton::draw()
+void  ofxINUIButton::onDraw()
 {
 
-    ofxINUIObject::draw();
-    if(is_pressed())
-    {
-      ofSetColor(VSUI_COLOR_OVER);
-      ofDrawRectangle(*this);
-    }
-    ofSetColor(VSUI_COLOR_TEXT);
-    ofPushMatrix();
-    ofTranslate(x,y);
-    ofPushMatrix();
-    ofTranslate(0, getHeight()/2);
-    ofTranslate(UI_FONT_SIZE, (label_bbox.getHeight()/2));
-    
-    
-    //VSUI::font.drawString(label, 0, 0);
-    ofPopMatrix();
-    ofPushStyle();
-    ofNoFill();
-    ofSetColor(0);
-    ofDrawRectangle(0,0,getWidth(),getHeight());
-    ofPopStyle();
-    ofPopMatrix();
+	pushMatrix();
+
+	ofSetColor(skin.idle);
+
+	if(val){
+		ofSetColor(skin.pressed);
+	}
+
+	ofDrawRectangle(rect);
+
+	ofPushMatrix();
+	ofTranslate(getCenter());
+	ofTranslate(-labelBox.getWidth()*.5, labelBox.getHeight()*.5);
+	ofSetColor(0);
+	ofDrawBitmapString(label, 0, 0);
+	ofPopMatrix();
+
+	popMatrix();
+
 }
 
-bool  ofxINUIButton::on_pressed()
+void  ofxINUIButton::onPressedDelegate(int _id, float _x, float _y)
 {
-    return dispatch_bang;
+
+	dispatchFrame = ofGetFrameNum();
+	dispatchBang = true;
+	if (isToggle)
+		val = !val;
+	else
+		val = true;
 }
 
+void	ofxINUIButton::off()
+{
+	val = false;
+}
+
+void	ofxINUIButton::reset()
+{
+	val = false;
+	dispatchBang = false;
+	dispatchFrame = -1;
+}
+
+bool  ofxINUIButton::onPressed()
+{
+    return dispatchBang && val;
+}
+
+bool	ofxINUIButton::isOn()
+{
+	return val;
+}
 

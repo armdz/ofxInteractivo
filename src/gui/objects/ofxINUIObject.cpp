@@ -13,6 +13,7 @@ ofxINUIObject::ofxINUIObject()
 {
     pressed_is_delegated = false;
 		hid_pointer_id = -1;
+		parent = NULL;
 }
 
 ofxINUIObject::~ofxINUIObject()
@@ -23,7 +24,7 @@ ofxINUIObject::~ofxINUIObject()
 void  ofxINUIObject::setup(string _name)
 {
     name = _name;
-    is_enable = true;
+  //  is_enable = true;
     visible = true;
     system_owned = false;
     mouse_press_state = false;
@@ -36,17 +37,16 @@ void  ofxINUIObject::setup(string _name)
     parent = NULL;
     object_over = NULL;
     obj_type = "";
-    set_interactive(false);
     prev_click_time = ofGetElapsedTimeMillis(); //for double click
     do_double_click = false;
     child_index_to_delete = -1;
-    
-    ofAddListener(ofxINHIDEvent().move, this, &ofxINUIObject::hid_move);
-    ofAddListener(ofxINHIDEvent().pressed, this, &ofxINUIObject::hid_pressed);
-    ofAddListener(ofxINHIDEvent().released, this, &ofxINUIObject::hid_released);
-
-    init();
+		setEnable(true);
+		//setPosition(_x, _y);
+	//	setSize(_w, _h);
+   
+//		onSetup();
 }
+
 
 void  ofxINUIObject::destroy()
 {
@@ -77,12 +77,17 @@ void  ofxINUIObject::set_id(int _id)
   id = _id;
 }
 
-void  ofxINUIObject::set_parent(ofxINUIObject  *_parent)
+void  ofxINUIObject::setParent(ofxINUIObject  *_parent)
 {
   parent = _parent;
   draggable = false;
+
+	calculateFinalMatrix();
+
+	//updateMatrix();
+
   //set_layer(1);
-  initial_pos = ofPoint(x,y);
+ // initial_pos = ofPoint(x,y);
 }
 
 void  ofxINUIObject::set_draggable(bool  _val)
@@ -102,29 +107,23 @@ void    ofxINUIObject::delegate(bool _pressed)
 
 void  ofxINUIObject::update()
 {
-    
-  behavior(); //  correct this order
-  
-  if(is_enable){
-    
-    if(interactive){
-      
-    }
-  
-    update_childs();
-    if(parent != NULL){
-      setX(parent->x+initial_pos.x);
-      setY(parent->y+initial_pos.y);
-    }
-  }else{
-    status = INUIObject_Idle;
-  }
-    
+   
+	if (!isEnable())
+		return;
+
+	for (auto child : childs)
+	{
+		child->update();
+	}
+  behavior();
+
+	
+ 
 }
 
 void  ofxINUIObject::update_childs()
 {
-  if(is_enable){
+  if(isEnable()){
     for(int i=0;i<childs.size();i++)
     {
       childs.at(i)->update();
@@ -134,7 +133,7 @@ void  ofxINUIObject::update_childs()
 
 void  ofxINUIObject::childs_behavior()
 {
-  if(is_enable){
+  if(isEnable()){
     for(int i=0;i<childs.size();i++)
     {
       childs.at(i)->behavior();
@@ -146,22 +145,34 @@ void  ofxINUIObject::childs_behavior()
 void  ofxINUIObject::draw()
 {
   
-  if(visible){
-    ofSetColor(VSUI_COLOR_IDLE);
-    ofDrawRectangle(*this);
-    drawChilds();
-  }
+	if (!visible)
+		return;
+
+	onDraw();
+
+	/*
+	ofPushMatrix();
+
+	ofMultMatrix(finalMatrix);
+	ofNoFill();
+	ofSetColor(255);
+	ofDrawRectangle(rect);
+	ofFill();
+
+	ofDrawBitmapStringHighlight(getStatus(), 0, 0);
+	
+	ofPopMatrix();
+	
+	drawChilds();*/
 
 }
 
 void  ofxINUIObject::drawChilds()
 {
-  if(visible){
-    for(int i=0;i<childs.size();i++)
-    {
-      childs.at(i)->draw();
-    }
-  }
+   for(int i=0;i<childs.size();i++)
+   {
+     childs.at(i)->draw();
+   }
 }
 
 void  ofxINUIObject::clear_childs()
@@ -169,7 +180,7 @@ void  ofxINUIObject::clear_childs()
   childs.clear();
 }
 
-void  ofxINUIObject::set_visible(bool _val)
+void  ofxINUIObject::setVisible(bool _val)
 {
   visible = _val;
 }
@@ -181,12 +192,13 @@ void  ofxINUIObject::set_obj_type(string _type)
 
 void  ofxINUIObject::add_child(ofxINUIObject* _child)
 {
+	/*
   _child->set_parent(this);
   _child->initial_pos.set(_child->getX(), _child->getY());
   _child->setX(x+_child->initial_pos.x);
   _child->setY(y+_child->initial_pos.y);
   _child->set_layer(childs.size()+1);
-  childs.push_back(_child);
+  childs.push_back(_child);*/
 }
 
 void  ofxINUIObject::remove_child(ofxINUIObject* _child)
@@ -195,7 +207,7 @@ void  ofxINUIObject::remove_child(ofxINUIObject* _child)
   int   found = -1;
   while(i<childs.size() && found == -1)
   {
-    if(childs.at(i)->get_name() == _child->get_name())
+    if(childs.at(i)->getName() == _child->getName())
     {
       found = i;
     }
@@ -209,15 +221,12 @@ void  ofxINUIObject::remove_child(ofxINUIObject* _child)
   }
 }
 
-void  ofxINUIObject::enable(bool _val)
-{
-  is_enable = _val;
-}
 
 void  ofxINUIObject::enable_childs(bool  _val)
 {
+	/*
   for(int i=0;i<childs.size();i++)
-    childs.at(i)->enable(_val);
+    childs.at(i)->enable(_val);*/
 }
 
 void  ofxINUIObject::set_info(ofxJSONElement _info)
@@ -230,9 +239,20 @@ void  ofxINUIObject::set_system_owned()
   system_owned = true;
 }
 
-void  ofxINUIObject::set_interactive(bool _val)
+void	ofxINUIObject::setEnable(bool _val)
 {
-  interactive = _val;
+	if (_val)
+	{
+		ofAddListener(ofxINHIDEvent().move, this, &ofxINUIObject::hid_move);
+		ofAddListener(ofxINHIDEvent().pressed, this, &ofxINUIObject::hid_pressed);
+		ofAddListener(ofxINHIDEvent().released, this, &ofxINUIObject::hid_released);
+	}
+	else {
+		ofRemoveListener(ofxINHIDEvent().move, this, &ofxINUIObject::hid_move);
+		ofRemoveListener(ofxINHIDEvent().pressed, this, &ofxINUIObject::hid_pressed);
+		ofRemoveListener(ofxINHIDEvent().released, this, &ofxINUIObject::hid_released);
+	}
+	enable = _val;
 }
 
 void  ofxINUIObject::set_deleteable(bool _val)
@@ -246,10 +266,13 @@ void  ofxINUIObject::set_selected(bool _val)
   selected = _val;
 }
 
+
+
 //  Events
 
 void    ofxINUIObject::hid_move(ofxINHIDEvent   &_e)
 {
+
     if(inside(_e.pointer.x,_e.pointer.y))
     {
         status = status == INUIObject_Pressed ? INUIObject_Pressed : INUIObject_Over;
@@ -261,23 +284,27 @@ void    ofxINUIObject::hid_move(ofxINHIDEvent   &_e)
 
 void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 {
-    if(interactive){
-        if(inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
-        {
-            hid_pointer_id = _e.pointer.id;
-            if(pressed_is_delegated){
-                on_pressed_delegate(_e);
-            }else{
-                status = INUIObject_Pressed;
-            }
-        }
-    }
+
+
+	if (inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
+	{
+		hid_pointer_id = _e.pointer.id;
+		if (pressed_is_delegated) {
+			ofPoint	localPoint = pointAsLocal(_e.pointer.x, _e.pointer.y);
+
+			onPressedDelegate(_e.pointer.id, localPoint.x, localPoint.y);
+		}
+		else {
+			status = INUIObject_Pressed;
+		}
+	}
+
 }
 
 void    ofxINUIObject::hid_released(ofxINHIDEvent   &_e)
 {
 
-    if(interactive && _e.pointer.id == hid_pointer_id){
+    if(_e.pointer.id == hid_pointer_id){
 				hid_pointer_id = -1;
         status = INUIObject_Released;
     }
@@ -303,18 +330,18 @@ void  ofxINUIObject::print_status()
       _status = "RELEASED";
       break;
   }
-  ofLogNotice() << get_name() << " status " << _status << endl;
+  ofLogNotice() << getName() << " status " << _status << endl;
 }
 
 
-bool  ofxINUIObject::is_visible()
+bool  ofxINUIObject::isVisible()
 {
   return visible;
 }
 
-bool  ofxINUIObject::is_enabled()
+bool  ofxINUIObject::isEnable()
 {
-  return is_enable;
+  return enable;
 }
 
 bool  ofxINUIObject::is_selected()
@@ -332,17 +359,17 @@ string  ofxINUIObject::get_obj_type()
   return obj_type;
 }
 
-string  ofxINUIObject::get_name()
+string  ofxINUIObject::getName()
 {
   return name;
 }
 
-bool    ofxINUIObject::is_idle()
+bool    ofxINUIObject::isIdle()
 {
   return status == INUIObject_Idle;
 }
 
-bool    ofxINUIObject::is_over()
+bool    ofxINUIObject::isOver()
 {
   return status == INUIObject_Over;
 }
@@ -358,7 +385,7 @@ ofxINUIObject*   ofxINUIObject::get_child_by(string _name)
   int   i = 0;
   while(i<childs.size() && ret == NULL)
   {
-    if(childs.at(i)->get_name() == _name)
+    if(childs.at(i)->getName() == _name)
     {
       ret = childs.at(i);
     }
@@ -373,7 +400,7 @@ ofxINUIObject*    ofxINUIObject::search_in_herarchy(ofxINUIObject*  _parent)
   
   if(_parent->get_childs().size() == 0)
   {
-    if(_parent->is_over() && _parent->is_visible())
+    if(_parent->isOver() && _parent->isVisible())
     {
       ret = _parent;
     }
@@ -389,7 +416,7 @@ ofxINUIObject*    ofxINUIObject::search_in_herarchy(ofxINUIObject*  _parent)
     
     if(ret == NULL)
     {
-      if(_parent->is_over())
+      if(_parent->isOver())
       {
         ret = _parent;
       }
@@ -403,12 +430,7 @@ ofxINUIObject* ofxINUIObject::has_object_over()
   return search_in_herarchy(this);
 }
 
-bool    ofxINUIObject::is_pressed()
-{
-  return status == INUIObject_Pressed;
-}
-
-bool    ofxINUIObject::is_released()
+bool    ofxINUIObject::isReleased()
 {
   return status == INUIObject_Released;
 }
@@ -438,6 +460,7 @@ int     ofxINUIObject::get_id()
   return id;
 }
 
+
 ofxJSONElement  ofxINUIObject::get_info()
 {
   return info;
@@ -446,16 +469,161 @@ ofxJSONElement  ofxINUIObject::get_info()
 ofxJSONElement  ofxINUIObject::get_json()
 {
   ofxJSONElement  json_ret;
-  json_ret["name"] = name;
+ /* json_ret["name"] = name;
   json_ret["type"] = obj_type;
   json_ret["id"] = id;
   json_ret["layer"] = layer;
   json_ret["view"]["x"] = x;
   json_ret["view"]["y"] = y;
   json_ret["view"]["width"] = width;
-  json_ret["view"]["height"] = height;
+  json_ret["view"]["height"] = height;*/
   return json_ret;
 }
-    
 
+
+
+void	ofxINUIObject::addChild(ofxINUIObject*	_child)
+{
+	_child->setParent(this);
+	childs.push_back(_child);
+}
+
+
+void	ofxINUIObject::setPosition(float	_x, float _y, float _z)
+{
+	matrix.setTranslation(_x, _y, _z);
+	calculateFinalMatrix();
+}
+
+void	ofxINUIObject::setX(float _x)
+{
+	matrix.setTranslation(ofVec3f(_x, matrix.getTranslation().y));
+	calculateFinalMatrix();
+}
+
+void	ofxINUIObject::setY(float _y)
+{
+	matrix.setTranslation(ofVec3f(matrix.getTranslation().x, _y));
+	calculateFinalMatrix();
+}
+
+void	ofxINUIObject::setSize(float _w, float _h)
+{
+	rect.setWidth(_w);
+	rect.setHeight(_h);
+}
+
+void	ofxINUIObject::rotate(float _deg)
+{
+	//	not implemented :D
+	//	matrix.makeRotationMatrix(_deg, 0.0, 0.0, 1.0);
+}
+
+void	ofxINUIObject::setWidth(float _w)
+{
+	rect.setWidth(_w);
+}
+
+void	ofxINUIObject::setHeight(float _h)
+{
+	rect.setHeight(_h);
+}
+
+
+void	ofxINUIObject::scale(float _x, float	_y)
+{
+	matrix.scale(ofVec3f(_x, _y));
+}
+
+
+void	ofxINUIObject::pushMatrix()
+{
+	ofPushMatrix();
+	ofMultMatrix(finalMatrix);
+}
+
+void	ofxINUIObject::popMatrix()
+{
+	ofPopMatrix();
+}
+
+ofMatrix4x4	ofxINUIObject::getMatrix()
+{
+	return matrix;
+}
+
+void			ofxINUIObject::calculateFinalMatrix()
+{
+	ofMatrix4x4	tempMatrix;
+	if (parent != NULL) {
+		tempMatrix = parent->getMatrix();
+		tempMatrix *= matrix;
+	}
+	else {
+		tempMatrix = matrix;
+	}
+	finalMatrix = tempMatrix;
+	for (auto child : childs)
+		child->calculateFinalMatrix();
+}
+
+bool	ofxINUIObject::inside(float _x, float _y)
+{
+	ofVec3f	localPoint = pointAsLocal(_x, _y);
+	return rect.inside(localPoint.x, localPoint.y);
+}
+
+ofPoint ofxINUIObject::pointAsLocal(float _x, float _y)
+{
+	ofVec3f	localPoint(_x, _y);
+	localPoint = localPoint*finalMatrix.getInverse();
+	return localPoint;
+}
+
+
+string	ofxINUIObject::getStatus()
+{
+	string ret = "Idle";
+	switch (status)
+	{
+	case INUIObject_Idle:
+		break;
+	case INUIObject_Over:
+		ret = "Over";
+		break;
+	case INUIObject_Pressed:
+		ret = "Pressed";
+		break;
+	case INUIObject_Released:
+		ret = "Released";
+		break;
+	default:
+		break;
+	}
+	return ret;
+}
+
+float ofxINUIObject::getX()
+{
+	return matrix.getTranslation().x;
+}
+
+float ofxINUIObject::getY()
+{
+	return matrix.getTranslation().y;
+}
+    
+float	ofxINUIObject::getWidth()
+{
+	return rect.getWidth();
+}
+
+float ofxINUIObject::getHeight() 
+{
+	return rect.getHeight();
+}
   
+ofPoint ofxINUIObject::getCenter()
+{
+	return ofPoint(getWidth()*.5, getHeight()*.5);
+}

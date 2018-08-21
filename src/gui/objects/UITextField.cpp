@@ -30,7 +30,6 @@ void  UITextField::init()
   setWidth(100+UI_FONT_SIZE);
   setHeight(25);
   set_draggable(true);
-  set_interactive(true);
   text_bbox.set(0,0,0,0);
   cursor_pos = 0;
   cursor_pos_by_key = false;
@@ -45,7 +44,7 @@ void  UITextField::set_text(string _text)
   text = _text;
   text_selected = false;
   cursor_pos = text.size();
-  text_bbox = VSUI::calculate_bbox(text);
+  text_bbox = ofxINUI::calculate_bbox(text);
 }
   
 void  UITextField::set_min_bounds(float _w,float _h)
@@ -67,6 +66,7 @@ void  UITextField::set_type_alpha()
   
 void  UITextField::enable(bool _val)
 {
+	/*
   ofxINUIObject::enable(_val);
   if(_val){
     cursor_show = true;
@@ -74,7 +74,7 @@ void  UITextField::enable(bool _val)
     ofAddListener(ofEvents().keyPressed, this, &UITextField::on_key_pressed);
   }else{
     ofRemoveListener(ofEvents().keyPressed, this, &UITextField::on_key_pressed);
-  }
+  }*/
 }
 
 void  UITextField::behavior()
@@ -98,14 +98,14 @@ void  UITextField::behavior()
     }
   }
   
-  if(is_pressed())
+ /* if(isPressed())
   {
     selected = true;
     cursor_pos_by_key = false;
     if(text_selected)
       text_selected = false;
   }
-
+*/
   if(end_edit_bang)
   {
     end_edit_bang = false;
@@ -120,26 +120,26 @@ void  UITextField::behavior()
 void  UITextField::draw()
 {
   
-  ofSetColor(VSUI_COLOR_IDLE);
+  /*ofSetColor(ofxINUI_COLOR_IDLE);
   float view_width = has_min_bounds ? max(getWidth(),text_bbox.getWidth()+UI_FONT_SIZE*2) : text_bbox.getWidth()+UI_FONT_SIZE*2;
   ofDrawRectangle(x,y,view_width,getHeight());
   
   if(text_selected){
     ofPushStyle();
-    ofSetColor(ofFloatColor(VSUI_COLOR_OVER.r,VSUI_COLOR_OVER.g,VSUI_COLOR_OVER.b,.5f));
+    ofSetColor(ofFloatColor(ofxINUI_COLOR_OVER.r,ofxINUI_COLOR_OVER.g,ofxINUI_COLOR_OVER.b,.5f));
     ofDrawRectangle(x,y,view_width,getHeight());
     ofPopStyle();
   }
   
   ofPushMatrix();
-  ofTranslate(x+UI_FONT_SIZE/2, y+getHeight()-VSUI::font.getLineHeight()/2.0);
-  ofSetColor(VSUI_COLOR_TEXT);
-  VSUI::font.drawString(text, 0, 0);
+  ofTranslate(x+UI_FONT_SIZE/2, y+getHeight()-ofxINUI::font.getLineHeight()/2.0);
+  ofSetColor(ofxINUI_COLOR_TEXT);
+  ofxINUI::font.drawString(text, 0, 0);
   
   if(selected && cursor_show){
     ofSetColor(0);
     
-    VSUI::font.drawString("|",text.size() == 0 ? 0 : (cursor_pos*(text_bbox.getWidth()/text.size()))-VSUI::font.getLetterSpacing()/2,0);
+    ofxINUI::font.drawString("|",text.size() == 0 ? 0 : (cursor_pos*(text_bbox.getWidth()/text.size()))-ofxINUI::font.getLetterSpacing()/2,0);
   }
   
   ofPopMatrix();
@@ -151,14 +151,14 @@ void  UITextField::draw()
     ofSetColor(0);
     ofDrawRectangle(x,y,view_width,getHeight());
     ofPopStyle();
-  }
+  }*/
   
 }
 
 void  UITextField::clear()
 {
   text = "";
-  text_bbox = VSUI::calculate_bbox(text);
+  text_bbox = ofxINUI::calculate_bbox(text);
   end_edit_bang = false;
   text_change = false;
   cursor_pos_by_key = false;
@@ -256,7 +256,7 @@ void  UITextField::on_key_pressed(ofKeyEventArgs &e)
       }
     }
     
-    text_bbox = VSUI::calculate_bbox(text);
+    text_bbox = ofxINUI::calculate_bbox(text);
    
   }
   

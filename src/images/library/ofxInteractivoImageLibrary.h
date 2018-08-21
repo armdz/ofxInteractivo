@@ -23,7 +23,7 @@ public:
     void    draw_centered(string _image_name,float _scale = 1.0f);
     void    draw_file_list(float _x = 20.0f,float _y = 20.0f);
     vector<string>    read_dir();
-    string  get_name();
+    string  getName();
     ofImage* get(string _image_name);
     float   get_width(string _image_name,float _scale = 1.0f);
     float   get_height(string _image_name,float _scale = 1.0f);

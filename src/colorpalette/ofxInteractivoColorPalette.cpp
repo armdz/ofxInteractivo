@@ -53,12 +53,12 @@ ofFloatColor ofxInteractivoColorPalette::get(string _paletteName,string _colorNa
     return palettes.at(_paletteName).colors.at(_colorName);
 }
 
-ofColor ofxInteractivoColorPalette::get(string _name)
+ofFloatColor& ofxInteractivoColorPalette::get(string _name)
 {
     return palette.at(_name);
 }
 
-ofColor ofxInteractivoColorPalette::get(int _index)
+ofFloatColor& ofxInteractivoColorPalette::get(int _index)
 {
     return palette.at(color_names.at(_index));
 }
@@ -80,6 +80,11 @@ ofFloatColor ofxInteractivoColorPalette::get(string _paletteName,int    _index)
     map<string,ofFloatColor>::iterator item = palettes.at(_paletteName).colors.begin();
     std::advance(item, _index);
     return item->second;
+}
+
+ofxINColorPalette	ofxInteractivoColorPalette::getPallete(string _name)
+{
+	return palettes.at(_name);
 }
 
 int     ofxInteractivoColorPalette::count()

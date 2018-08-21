@@ -5,13 +5,8 @@
  * Created by Robert Xiao on August 24, 2015.
  */
 
+#ifdef TARGET_WIN32
 
-#ifdef TARGET_WIN32 || TARGET_WIN64
-
-#pragma once
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_WIN8
-#endif
 
 #include "ofMain.h"
 #include "ofEvents.h"
@@ -176,19 +171,25 @@ LRESULT APIENTRY pointerWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	return CallWindowProc(prevWndProc, hwnd, uMsg, wParam, lParam);
 }
 
+#endif
+
+
 void ofxWin8TouchSetup() {
-	HWND hwnd = getOfxWindow();
-	if(!hwnd) {
-		ofLogError() << "Failed to get HWND for ofx window - try calling this later in update().";
-		return;
-	}
 
-	if(prevWndProc) {
-		ofLogError() << "Already called ofxWin8TouchSetup!";
-		return;
-	}
+	#ifdef TARGET_WIN32
 
-	prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
+		HWND hwnd = getOfxWindow();
+		if(!hwnd) {
+			ofLogError() << "Failed to get HWND for ofx window - try calling this later in update().";
+			return;
+		}
+
+		if(prevWndProc) {
+			ofLogError() << "Already called ofxWin8TouchSetup!";
+			return;
+		}
+
+		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
+	#endif
 }
 
-#endif

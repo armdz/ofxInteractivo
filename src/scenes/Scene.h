@@ -13,6 +13,8 @@
 #include "ofxINUIObject.hpp"
 #include "ofxINUIButton.hpp"
 #include "ofxINUIImageButton.hpp"
+#include "ofxINUIComboColor.h"
+#include "ofxINUISlider.h"
 
 #include "ofxInteractivo.h"
 
@@ -22,7 +24,7 @@ public:
     Scene();
     ~Scene();
     void    setup(string _name);
-    virtual void    sceneSetup(){};
+    virtual void    onSetup(){};
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided

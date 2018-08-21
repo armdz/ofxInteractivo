@@ -109,9 +109,9 @@ void    ofxINHIDManager::mouseScrolled(ofMouseEventArgs &arg)
 
 void		ofxINHIDManager::setup_touch()
 {
-	#ifdef TARGET_WIN32 || TARGET_WIN64
+	#ifdef TARGET_WIN32
 
-	ofxWin8TouchSetup();
+		ofxWin8TouchSetup();
 
 	#endif
     

@@ -32,14 +32,13 @@ void    APP::init(string _name,int _output_width,int _output_height,bool _touch)
 {
 		
     if(json_config.open("config.json")){
-        if(json_config["config"] != Json::nullValue)
-        {
-            if(json_config["config"] != Json::nullValue){
-                json_config = json_config["config"];
-            }
-        }
+			app_log("Config loaded");
     }else{
-        //app_log("config.json doesnt exists");
+        app_log("config.json doesnt exists");
+				ofxJSONElement	configJson;
+				configJson.save("config.json",true);
+				loadConfig();
+
     }
     //  app name
     name = _name;
@@ -61,6 +60,18 @@ void    APP::init(string _name,int _output_width,int _output_height,bool _touch)
 }
 
 //
+
+void		APP::saveConfig()
+{
+	json_config.save("config.json", true);
+}
+
+void		APP::loadConfig()
+{
+	if (json_config.open("config.json")) {
+		app_log("Config loaded");
+	}
+}
 
 ofxJSONElement  APP::config()
 {

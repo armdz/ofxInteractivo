@@ -14,7 +14,6 @@
 #include "ofxInteractivoFont.h"
 #include "ofxInteractivoColorPalette.h"
 #include "ofxInteractivoImages.h"
-#include "VideoInputManager.hpp"
 #include "ofxJSON.h"
 
 class APP {
@@ -25,7 +24,6 @@ public:
     static ofxInteractivoFont           font;
     static ofxInteractivoColorPalette   color;
     static ofxInteractivoImages         image;
-    static VideoInputManager    video_input;
     
     static int  width,height;
     static string name;
@@ -33,6 +31,8 @@ public:
     //  App config
     
     static  ofxJSONElement  config();
+		static	void		saveConfig();
+		static	void		loadConfig();
     static  int     getInt(string _name);
     static  float   getFloat(string _name);
     static  string  getString(string _name);

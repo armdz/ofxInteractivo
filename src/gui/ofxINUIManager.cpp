@@ -1,32 +1,32 @@
 //
-//  ofxINGUIManager.cpp
+//  ofxINUIManager.cpp
 //  Cajas
 //
 //  Created by lolo on 11/22/16.
 //
 //
 
-#include "ofxINGUIManager.h"
+#include "ofxINUIManager.h"
 
-ofxINGUIManager::ofxINGUIManager()
+ofxINUIManager::ofxINUIManager()
 {
   
 }
 
-ofxINGUIManager::~ofxINGUIManager()
+ofxINUIManager::~ofxINUIManager()
 {
   
 }
 
-void  ofxINGUIManager::setup()
+void  ofxINUIManager::setup()
 {
   
-  VSUI::init();
+  ofxINUI::init();
   
-  ofAddListener(ofEvents().mousePressed, this, &ofxINGUIManager::on_mouse_pressed);
-  ofAddListener(ofEvents().mouseReleased, this, &ofxINGUIManager::on_mouse_released);
-  ofAddListener(ofEvents().mouseDragged, this, &ofxINGUIManager::on_mouse_dragged);
-  ofAddListener(ofEvents().keyPressed,this, &ofxINGUIManager::on_key_pressed);
+  ofAddListener(ofEvents().mousePressed, this, &ofxINUIManager::on_mouse_pressed);
+  ofAddListener(ofEvents().mouseReleased, this, &ofxINUIManager::on_mouse_released);
+  ofAddListener(ofEvents().mouseDragged, this, &ofxINUIManager::on_mouse_dragged);
+  ofAddListener(ofEvents().keyPressed,this, &ofxINUIManager::on_key_pressed);
   
   prev_click_time = ofGetElapsedTimeMillis();
   
@@ -49,18 +49,18 @@ void  ofxINGUIManager::setup()
   
 }
 
-void  ofxINGUIManager::set_max_id(int _max_id)
+void  ofxINUIManager::set_max_id(int _max_id)
 {
   max_id = _max_id;
   id_count = max_id;
 }
 
-void  ofxINGUIManager::add(ofxINUIObject *_object)
+void  ofxINUIManager::add(ofxINUIObject *_object)
 {
   add_in_order(_object);
 }
 
-void  ofxINGUIManager::add_in_order(ofxINUIObject *_object)
+void  ofxINUIManager::add_in_order(ofxINUIObject *_object)
 {
   if(_object->is_system_owned())
   {
@@ -84,7 +84,7 @@ void  ofxINGUIManager::add_in_order(ofxINUIObject *_object)
   
 }
 
-void  ofxINGUIManager::update()
+void  ofxINUIManager::update()
 {
 
   
@@ -122,16 +122,16 @@ void  ofxINGUIManager::update()
     delete_selected_object = false;
   }*/
   
-  if(dragging_object != NULL)
+  /*if(dragging_object != NULL)
   {
-    if(dragging_object->is_pressed()){
+    if(dragging_object->isPressed()){
       dragging_object->setX(ofGetMouseX()-draggin_object_offset.x);
       dragging_object->setY(ofGetMouseY()-draggin_object_offset.y);
     }else{
       dragging_object = NULL;
     }
-  }
-  
+  }*/
+  /*
   int object_index = 0;
   ofxINUIObject  *temp_focus_object = NULL;
   bool        some_on_focus = false;
@@ -149,14 +149,14 @@ void  ofxINGUIManager::update()
     object_index++;
   }
   if(!some_on_focus && focused_object != NULL){
-    if(focused_object->is_idle() || (!focused_object->inside(ofGetMouseX(), ofGetMouseY()) && ofGetMousePressed())){
+    if(focused_object->isIdle() || (!focused_object->inside(ofGetMouseX(), ofGetMouseY()) && ofGetMousePressed())){
       focused_object = NULL;
       focused_object_index = -1;
     }
   }
   if(focused_object != NULL && dragging_object == NULL)
   {
-    if(focused_object->is_draggable() && focused_object->is_pressed())
+    if(focused_object->is_draggable() && focused_object->isPressed())
     {
       if(selected_objects.size() > 0)
       {
@@ -173,10 +173,10 @@ void  ofxINGUIManager::update()
       draggin_object_offset.y = fabs(dragging_object->y-ofGetMouseY());
     }
   }
- 
+ */
 }
 
-void  ofxINGUIManager::draw()
+void  ofxINUIManager::draw()
 {
   for(int i=0;i<objects.size();i++)
   {
@@ -189,13 +189,13 @@ void  ofxINGUIManager::draw()
   
   /*
   ofDrawBitmapStringHighlight(ofToString(objects.size()), 20,20);
-  ofDrawBitmapStringHighlight("FOCUS :" + (focused_object == NULL ? "NULL" : focused_object->get_name()), 20,40);
-  ofDrawBitmapStringHighlight("SELECTED :" + (selected_object == NULL ? "NULL" : selected_object->get_name()), 20,60);
+  ofDrawBitmapStringHighlight("FOCUS :" + (focused_object == NULL ? "NULL" : focused_object->getName()), 20,40);
+  ofDrawBitmapStringHighlight("SELECTED :" + (selected_object == NULL ? "NULL" : selected_object->getName()), 20,60);
     ofDrawBitmapStringHighlight("WPOS :" + (ofToString(workspace_position.x)+","+ofToString(workspace_position.y)), 20,80);*/
   
 }
 
-void  ofxINGUIManager::clear()
+void  ofxINUIManager::clear()
 {
   
 
@@ -217,7 +217,7 @@ void  ofxINGUIManager::clear()
   
 }
 
-ofxINUIObject*   ofxINGUIManager::get_object_by(int _id)
+ofxINUIObject*   ofxINUIManager::get_object_by(int _id)
 {
   ofxINUIObject* ret = NULL;
   int   i = 0;
@@ -232,7 +232,7 @@ ofxINUIObject*   ofxINGUIManager::get_object_by(int _id)
   return ret;
 }
   
-int   ofxINGUIManager::get_object_index(ofxINUIObject*  _object)
+int   ofxINUIManager::get_object_index(ofxINUIObject*  _object)
 {
   int   ret = -1;
   int   i = 0;
@@ -247,7 +247,7 @@ int   ofxINGUIManager::get_object_index(ofxINUIObject*  _object)
   return ret;
 }
 
-void  ofxINGUIManager::clear_list_of_selection()
+void  ofxINUIManager::clear_list_of_selection()
 {
   for(int i=0;i<selected_objects.size();i++){
     selected_objects.at(i)->set_selected(false);
@@ -258,7 +258,7 @@ void  ofxINGUIManager::clear_list_of_selection()
 
 //  Generate JSON of the nodes to save files
 
-ofxJSONElement  ofxINGUIManager::get_json()
+ofxJSONElement  ofxINUIManager::get_json()
 {
   ofxJSONElement  ret_json;
   for(int i=0;i<objects.size();i++)
@@ -274,7 +274,7 @@ ofxJSONElement  ofxINGUIManager::get_json()
 
 //
 
-void  ofxINGUIManager::on_mouse_pressed(ofMouseEventArgs &e)
+void  ofxINUIManager::on_mouse_pressed(ofMouseEventArgs &e)
 {
   
   if(e.button == 0)
@@ -319,13 +319,13 @@ void  ofxINGUIManager::on_mouse_pressed(ofMouseEventArgs &e)
   }
 }
   
-void  ofxINGUIManager::on_mouse_released(ofMouseEventArgs &e)
+void  ofxINUIManager::on_mouse_released(ofMouseEventArgs &e)
 {
   draggin_worksspace_setted = false;
 
 }
   
-void  ofxINGUIManager::on_mouse_dragged(ofMouseEventArgs &e)
+void  ofxINUIManager::on_mouse_dragged(ofMouseEventArgs &e)
 {
  /*
   if(e.button == 0){
@@ -383,7 +383,7 @@ void  ofxINGUIManager::on_mouse_dragged(ofMouseEventArgs &e)
   
 }
   
-void  ofxINGUIManager::on_key_pressed(ofKeyEventArgs &e)
+void  ofxINUIManager::on_key_pressed(ofKeyEventArgs &e)
 {
   if(e.keycode == 259)
   {

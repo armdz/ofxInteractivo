@@ -23,6 +23,7 @@ public:
     void clear();
     ofTrueTypeFont& get(string _font_name);
     ofRectangle get_box(string _font_name,string _text);
+		ofRectangle	getBitmapBox(string _text);
     string      text_for_width(string _font_name,string _text,float _width);
 private:
     std::map<std::string, ofTrueTypeFont& > fonts;
