@@ -18,7 +18,7 @@
 
 #include "ofxInteractivo.h"
 
-class Scene : public ofxINUIObject,private ofxINObject{
+class Scene : public ofxINUIObject,public ofxINObject{
     
 public:
     Scene();
