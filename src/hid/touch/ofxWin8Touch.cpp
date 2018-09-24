@@ -5,7 +5,6 @@
  * Created by Robert Xiao on August 24, 2015.
  */
 
-#ifdef TARGET_WIN32
 
 
 #include "ofMain.h"
@@ -171,12 +170,10 @@ LRESULT APIENTRY pointerWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	return CallWindowProc(prevWndProc, hwnd, uMsg, wParam, lParam);
 }
 
-#endif
 
 
 void ofxWin8TouchSetup() {
 
-	#ifdef TARGET_WIN32
 
 		HWND hwnd = getOfxWindow();
 		if(!hwnd) {
@@ -190,6 +187,5 @@ void ofxWin8TouchSetup() {
 		}
 
 		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
-	#endif
 }
 

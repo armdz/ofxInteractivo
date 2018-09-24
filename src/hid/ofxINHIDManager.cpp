@@ -128,12 +128,18 @@ void		ofxINHIDManager::touchDown(ofTouchEventArgs & touch)
     new_pointer.set(touch.x,touch.y);
 	new_pointer.state = HIDPointerState_Pressed;
 	new_pointer.frame_stamp = ofGetFrameNum();
+	is_pressed = 1;
+	x = touch.x;
+	y = touch.y;
 	pointers.insert(std::pair<int, ofxINHIDPointer>(new_pointer.id, new_pointer));
 }
 
 void		ofxINHIDManager::touchMoved(ofTouchEventArgs & touch)
 {
 	pointers[touch.id].set(touch.x, touch.y);
+	x = touch.x;
+	y = touch.y;
+	is_pressed = 1;
 }
 
 void		ofxINHIDManager::touchUp(ofTouchEventArgs & touch)
@@ -203,6 +209,8 @@ void    ofxINHIDManager::update(ofEventArgs  &_args)
 		x = pointers.at(0).x;
 		y = pointers.at(0).y;
 	}
+
+
 
 	vec_pointers.clear();
 	for (auto &pointer : pointers)
