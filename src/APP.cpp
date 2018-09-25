@@ -30,9 +30,13 @@ ofxInteractivoImages    APP::image;
 
 void    APP::init(string _name,int _output_width,int _output_height,bool _touch)
 {
+
+		ofFile	f("config.json");
 		
-    if(json_config.open("config.json")){
-			app_log("Config loaded");
+    if(f.exists()){
+			if (json_config.open("config.json")) {
+				app_log("Config loaded");
+			}
     }else{
         app_log("config.json doesnt exists");
 				ofxJSONElement	configJson;

@@ -69,6 +69,7 @@ void    ofxINHIDManager::mousePressed(ofMouseEventArgs &arg)
     x = arg.x;
     y = arg.y;
     is_pressed = arg.button;
+
     pointers[0].state = HIDPointerState_Pressed;
     pointers[0].frame_stamp = ofGetFrameNum();
     pointers[0].set(arg.x, arg.y);
@@ -155,7 +156,7 @@ void		ofxINHIDManager::touchUp(ofTouchEventArgs & touch)
 
 void		ofxINHIDManager::touchDoubleTap(ofTouchEventArgs & touch)
 {
-
+	
 }
 
 void		ofxINHIDManager::touchCancelled(ofTouchEventArgs & touch)
