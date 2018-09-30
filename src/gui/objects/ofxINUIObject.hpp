@@ -55,6 +55,8 @@ public:
     void  set_system_owned();
     void  set_deleteable(bool _val);
     void  set_selected(bool _val);
+		void	lockEvents();
+		void  unlockEvents();
    
     //
     virtual ofxJSONElement  get_json();
@@ -76,6 +78,7 @@ public:
     bool    is_system_owned();
     bool    deletable();
     bool    is_selected();
+		bool		stopPropagate();
     int     get_layer();
     int     get_id();
     void	  print_status();
@@ -142,6 +145,8 @@ protected:
     bool    is_deletable;
     bool    selected;
     bool    pressed_is_delegated;
+		bool		eventsLocked;
+		bool		stopClickPropagate;
     ofxINUIObject *parent;
     ofxINUIObject *object_over;
     ofPoint     initial_pos;  //  in case it has a parent, save the initial pos

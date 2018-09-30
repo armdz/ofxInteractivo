@@ -66,17 +66,27 @@ static ofFloatColor CONNECTION_HIGHLIGHT = ofFloatColor(0.0,1.0);
 //  this dont be here ?
 static string  CJS_VALUE_BUNDLE = "cajas.generic.value_node";
 
-  
+static bool		_stopClickPropagation;
+
+
 class ofxINUI
 {
 public:
 	ofxINUI();
   ~ofxINUI();
   static void  init();
+	static void	 stopClickPropagation();
+	static void  resetClickPropagation();
+	static bool	 canPropagate();
+
+	static bool		GUI_PRESSED;
+
   static ofRectangle  calculate_bbox(string _text);
   static bool         is_number(const std::string& s);
   static ofTrueTypeFont		font;
 	static ofxINUISkin			skin;
+	
+
 };
 
 

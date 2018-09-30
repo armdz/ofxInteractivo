@@ -66,13 +66,16 @@ void    ofxINHIDManager::mouseDragged(ofMouseEventArgs &arg)
 
 void    ofxINHIDManager::mousePressed(ofMouseEventArgs &arg)
 {
-    x = arg.x;
-    y = arg.y;
-    is_pressed = arg.button;
+		
 
-    pointers[0].state = HIDPointerState_Pressed;
-    pointers[0].frame_stamp = ofGetFrameNum();
-    pointers[0].set(arg.x, arg.y);
+		x = arg.x;
+		y = arg.y;
+		is_pressed = arg.button;
+
+		pointers[0].state = HIDPointerState_Pressed;
+		pointers[0].frame_stamp = ofGetFrameNum();
+		pointers[0].set(arg.x, arg.y);
+	
 }
 
 void    ofxINHIDManager::mouseReleased(ofMouseEventArgs &arg)
@@ -84,6 +87,7 @@ void    ofxINHIDManager::mouseReleased(ofMouseEventArgs &arg)
     is_released = true;
     pointers[0].state = HIDPointerState_Released;
     pointers[0].frame_stamp = ofGetFrameNum();
+		ofxINUI::resetClickPropagation();
 }
 
 void    ofxINHIDManager::mouseEntered(ofMouseEventArgs &arg)
@@ -124,15 +128,16 @@ void		ofxINHIDManager::setup_touch()
 
 void		ofxINHIDManager::touchDown(ofTouchEventArgs & touch)
 {
-	ofxINHIDPointer	new_pointer;
-	new_pointer.id = touch.id;
-    new_pointer.set(touch.x,touch.y);
-	new_pointer.state = HIDPointerState_Pressed;
-	new_pointer.frame_stamp = ofGetFrameNum();
-	is_pressed = 1;
-	x = touch.x;
-	y = touch.y;
-	pointers.insert(std::pair<int, ofxINHIDPointer>(new_pointer.id, new_pointer));
+		ofxINHIDPointer	new_pointer;
+		new_pointer.id = touch.id;
+		new_pointer.set(touch.x, touch.y);
+		new_pointer.state = HIDPointerState_Pressed;
+		new_pointer.frame_stamp = ofGetFrameNum();
+		is_pressed = 1;
+		x = touch.x;
+		y = touch.y;
+		pointers.insert(std::pair<int, ofxINHIDPointer>(new_pointer.id, new_pointer));
+	
 }
 
 void		ofxINHIDManager::touchMoved(ofTouchEventArgs & touch)
@@ -152,6 +157,7 @@ void		ofxINHIDManager::touchUp(ofTouchEventArgs & touch)
 
 	pointers[touch.id].state = HIDPointerState_Released;
 	pointers[touch.id].frame_stamp = ofGetFrameNum();
+	ofxINUI::resetClickPropagation();
 }
 
 void		ofxINHIDManager::touchDoubleTap(ofTouchEventArgs & touch)
@@ -168,6 +174,7 @@ void		ofxINHIDManager::touchCancelled(ofTouchEventArgs & touch)
 
 	pointers[touch.id].state = HIDPointerState_Released;
 	pointers[touch.id].frame_stamp = ofGetFrameNum();
+	ofxINUI::resetClickPropagation();
 }
 
 //#endif
@@ -235,7 +242,8 @@ void		ofxINHIDManager::draw()
 
 int     ofxINHIDManager::pressed()
 {
-    return is_pressed != -1;
+		
+    return (is_pressed != -1 && ofxINUI::canPropagate());
 }
 
 bool   ofxINHIDManager::bang_pressed()
@@ -251,7 +259,7 @@ bool   ofxINHIDManager::bang_pressed()
 
 bool    ofxINHIDManager::bang_released()
 {
-    return pointers[0].state == HIDPointerState_Released;
+  return pointers[0].state == HIDPointerState_Released;
 }
 
 vector<ofxINHIDPointer>*   ofxINHIDManager::get_pointers()

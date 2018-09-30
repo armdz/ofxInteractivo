@@ -29,8 +29,12 @@ void    Scene::setup(string _name)
 
 void    Scene::pUpdate()
 {
+		ofxINUI::resetClickPropagation();
     ofxINUIObject::update();
     ofxINObject::update();
+		if (ofxINUIObject::stopPropagate()) {
+			ofxINUI::stopClickPropagation();
+		}
     update();
 }
 

@@ -12,8 +12,12 @@
 ofTrueTypeFont  ofxINUI::font;
 ofxINUISkin			ofxINUI::skin;
 
+bool	ofxINUI::GUI_PRESSED;
+
 ofxINUI::ofxINUI()
 {
+	_stopClickPropagation = false;
+	ofxINUI::GUI_PRESSED = false;
 }
 
 ofxINUI::~ofxINUI()
@@ -24,6 +28,22 @@ ofxINUI::~ofxINUI()
 void  ofxINUI::init()
 {
   //font.load("font/menlo_regular.ttf",UI_FONT_SIZE,true,true,false,true);
+}
+
+void	ofxINUI::stopClickPropagation()
+{
+	_stopClickPropagation = true;
+}
+
+void	ofxINUI::resetClickPropagation()
+{
+
+	_stopClickPropagation = false;
+}
+
+bool	ofxINUI::canPropagate()
+{
+	return !_stopClickPropagation;
 }
 
 ofRectangle  ofxINUI::calculate_bbox(string _text)

@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxINHIDPointer.h"
+#include "ofxINUI.h"
 
 enum ofxINHIDType
 {

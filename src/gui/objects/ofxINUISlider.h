@@ -8,10 +8,13 @@ class ofxINUISlider : public ofxINUIObject
 public:
 	ofxINUISlider();
 	~ofxINUISlider();
-	void  setup(string _name, float _x, float _y, float _w, float _h,float _minVal,float _maxVal, float _val = 0.0);
+	void  setup(string _name, float _x, float _y,ofImage _backImage,ofImage _buttonImage,float _minVal,float _maxVal, float _val = 0.0);
+	void	setFace(ofImage _img);
 	void	setButtonFace(ofImage _img);
 	void	setBackImage(ofImage _img);
 	void	setStep(float _scale);
+	void	open();
+	void	close();
 	void  behavior();
 	void  onDraw();
 	float val();
@@ -19,7 +22,7 @@ public:
 private:
 	void	horizontal();
 	void	vertical();
-
+	ofxINUIImageButton	buttonFace;
 	ofxINUIImageButton	button;
 	ofImage	backImage;
 	bool	horizontalAlign;
@@ -29,5 +32,8 @@ private:
 	float step;
 	float minVal;
 	float maxVal;
+	float minBound;
+	bool	opened;
+	bool	localPress;
 };
 

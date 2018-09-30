@@ -78,6 +78,7 @@ void  ofxINUICombo::open()
 	}
 	setHeight(height);
 	opened = true;
+	lockEvents();
 }
 
 void  ofxINUICombo::close()
@@ -88,6 +89,7 @@ void  ofxINUICombo::close()
 	}
 	setHeight(button.getHeight());
 	opened = false;
+	unlockEvents();
 }
 
 void  ofxINUICombo::behavior()

@@ -90,7 +90,6 @@ void  ofxINUIButton::onDraw()
 
 void  ofxINUIButton::onPressedDelegate(int _id, float _x, float _y)
 {
-
 	dispatchFrame = ofGetFrameNum();
 	dispatchBang = true;
 	if (isToggle)

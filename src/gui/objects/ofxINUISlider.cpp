@@ -2,6 +2,8 @@
 
 ofxINUISlider::ofxINUISlider()
 {
+	localPress = false;
+	opened = false;
 }
 
 
@@ -9,19 +11,29 @@ ofxINUISlider::~ofxINUISlider()
 {
 }
 
-void  ofxINUISlider::setup(string _name, float _x, float _y, float _w, float _h, float _minVal, float _maxVal, float _val)
+void  ofxINUISlider::setup(string _name, float _x, float _y,ofImage _backImage, ofImage _buttonImage,float _minVal, float _maxVal, float _val)
 {
 	ofxINUIObject::setup(_name);
 	setPosition(_x, _y);
-	setSize(_w, _h);
-	horizontalAlign = getWidth() >= getHeight();
+	setBackImage(_backImage);
 
-	float minBound = min(getWidth(), getHeight());
+	setSize(_buttonImage.getWidth(), _buttonImage.getHeight());
+	horizontalAlign = _backImage.getWidth() >= _backImage.getHeight();
+
+	minBound = min(getWidth(), getHeight());
 
 	button.setup("Button", ofImage(), 0.0, 0.0);
-
 	button.setSize(minBound, minBound);
+	if(horizontalAlign)
+		button.setX(_buttonImage.getWidth());
+	else
+		button.setY(_buttonImage.getHeight());
+
 	button.setAsToggle(true);
+
+	buttonFace.setup("Face", _buttonImage, 0.0, 0.0);
+	buttonFace.setSize(minBound, minBound);
+	buttonFace.setAsToggle(true);
 
 	minVal = _minVal;
 	maxVal = _maxVal;
@@ -31,14 +43,24 @@ void  ofxINUISlider::setup(string _name, float _x, float _y, float _w, float _h,
 	step = .1;
 
 	addChild(&button);
-	
+	addChild(&buttonFace);
+
+	close();
+
+}
+
+void	ofxINUISlider::setFace(ofImage _img)
+{
+	buttonFace.setFace(_img);
+
+//	buttonFace.resizeFace(minBound, minBound);
+
 }
 
 void	ofxINUISlider::setButtonFace(ofImage _img)
 {
 	button.setFace(_img);
 }
-
 
 void	ofxINUISlider::setBackImage(ofImage _img)
 {
@@ -53,13 +75,71 @@ void	ofxINUISlider::setStep(float _scale)
 
 void  ofxINUISlider::behavior()
 {
-	if (horizontalAlign)
+
+	if (!APP::hid.pressed())
+		localPress = false;
+
+	if (buttonFace.isOn())
 	{
-		horizontal();
+		if (!opened)
+			open();
 	}
 	else {
-		vertical();
+		if (opened)
+			close();
+
 	}
+
+
+	if(inside(APP::hid.x, APP::hid.y))
+	{
+		if (APP::hid.pressed())
+			localPress = true;
+		if (horizontalAlign)
+		{
+			horizontal();
+		}
+		else {
+			vertical();
+		}
+	}
+	else {
+	
+
+	}
+
+
+	if (opened)
+	{
+		if (!inside(APP::hid.x, APP::hid.y) && APP::hid.pressed() && !localPress)
+		{
+			close();
+			buttonFace.off();
+		}
+	}
+
+
+}
+
+void	ofxINUISlider::open()
+{
+	button.setVisible(true);
+	button.setEnable(true);
+	opened = true;
+	if(horizontalAlign)	
+		setSize(buttonFace.getWidth() + backImage.getWidth(),buttonFace.getHeight());
+	else
+		setSize(buttonFace.getWidth(), buttonFace.getHeight() + backImage.getHeight());
+
+}
+
+void	ofxINUISlider::close()
+{
+	button.setVisible(false);
+	button.setEnable(false);
+	opened = false;
+	setSize(buttonFace.getWidth(), buttonFace.getHeight());
+
 }
 
 void	ofxINUISlider::horizontal()
@@ -71,12 +151,13 @@ void	ofxINUISlider::horizontal()
 	else if (button.isOn() && APP::hid.pressed())
 	{
 		float posx = (pointAsLocal(APP::hid.x, APP::hid.y).x + pressOffset);
-		posx = ofClamp(posx, 0, getWidth() - button.getWidth());
+		posx = ofClamp(posx, buttonFace.getWidth(), getWidth() - button.getWidth());
 
 
 		button.setX(posx);
 
-		valNorm = posx / (getWidth() - button.getWidth());
+		//valNorm = posx / (getWidth() - button.getWidth());
+		valNorm = ofMap(posx, buttonFace.getWidth(), getWidth() - button.getWidth(), 0, 1, true);
 		valScaled = ofLerp(minVal, maxVal, valNorm);
 
 	}
@@ -118,10 +199,13 @@ void  ofxINUISlider::onDraw()
 
 	pushMatrix();
 
-	if (backImage.isAllocated())
+	if (backImage.isAllocated() && opened)
 	{
 		ofSetColor(255);
-		backImage.draw(0, 0);
+		if (horizontalAlign)
+			backImage.draw(buttonFace.getWidth(), 0);
+		else
+			backImage.draw(0, buttonFace.getHeight());
 	}
 
 	popMatrix();

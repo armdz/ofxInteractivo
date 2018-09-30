@@ -36,6 +36,7 @@ void    SceneManager::update(ofEventArgs  &_args)
 {
     hid_bridge.update();
     gui.update();
+
     for(auto scene : scenes)
         scene.second->pUpdate();
 }

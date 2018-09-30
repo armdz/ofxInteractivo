@@ -14,6 +14,8 @@ ofxINUIObject::ofxINUIObject()
     pressed_is_delegated = false;
 		hid_pointer_id = -1;
 		parent = NULL;
+		eventsLocked = false;
+		stopClickPropagate = false;
 }
 
 ofxINUIObject::~ofxINUIObject()
@@ -108,12 +110,16 @@ void    ofxINUIObject::delegate(bool _pressed)
 void  ofxINUIObject::update()
 {
    
+
+	stopClickPropagate = false;
 	if (!isEnable())
 		return;
 
 	for (auto child : childs)
 	{
 		child->update();
+		if (!child->isIdle())
+			stopClickPropagate = true;
 	}
   behavior();
 
@@ -285,7 +291,6 @@ void    ofxINUIObject::hid_move(ofxINHIDEvent   &_e)
 void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 {
 
-
 	if (inside(_e.pointer.x, _e.pointer.y) && status != INUIObject_Pressed)
 	{
 		hid_pointer_id = _e.pointer.id;
@@ -297,6 +302,7 @@ void    ofxINUIObject::hid_pressed(ofxINHIDEvent   &_e)
 		else {
 			status = INUIObject_Pressed;
 		}
+
 	}
 
 }
@@ -309,6 +315,17 @@ void    ofxINUIObject::hid_released(ofxINHIDEvent   &_e)
         status = INUIObject_Released;
     }
 }
+
+void	ofxINUIObject::lockEvents()
+{
+	eventsLocked = true;
+}
+
+void	ofxINUIObject::unlockEvents()
+{
+	eventsLocked = false;
+}
+
 
 //
 
@@ -333,6 +350,10 @@ void  ofxINUIObject::print_status()
   ofLogNotice() << getName() << " status " << _status << endl;
 }
 
+bool	ofxINUIObject::stopPropagate()
+{
+	return stopClickPropagate;
+}
 
 bool  ofxINUIObject::isVisible()
 {
