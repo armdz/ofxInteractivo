@@ -273,6 +273,11 @@ void  ofxINUIObject::set_selected(bool _val)
 }
 
 
+void  ofxINUIObject::setRightAlign(float _sep)
+{
+    alignSeparation = _sep;
+    rightAlign = true;
+}
 
 //  Events
 
@@ -506,6 +511,16 @@ ofxJSONElement  ofxINUIObject::get_json()
 void	ofxINUIObject::addChild(ofxINUIObject*	_child)
 {
 	_child->setParent(this);
+    
+    if(rightAlign && childs.size() > 0)
+    {
+        ofxINUIObject*  prev = childs.at(childs.size()-1);
+        
+        _child->setX(prev->getX()+prev->getWidth()+alignSeparation);
+        _child->setY(prev->getY());
+        prev= NULL;
+    }
+    
 	childs.push_back(_child);
 }
 

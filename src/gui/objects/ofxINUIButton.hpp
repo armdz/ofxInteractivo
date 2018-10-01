@@ -25,8 +25,10 @@ public:
   void  behavior();
 	void  onDraw();
 	void	reset();
-	bool  onPressed();
+	bool    onPressed();
 	bool	isOn();	//	toggle case
+    
+    ofFloatColor getColor(){ return skin.idle;};
 protected:
 	bool	val;
 	bool	isToggle;

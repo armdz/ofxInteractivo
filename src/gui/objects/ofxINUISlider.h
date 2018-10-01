@@ -8,7 +8,7 @@ class ofxINUISlider : public ofxINUIObject
 public:
 	ofxINUISlider();
 	~ofxINUISlider();
-	void  setup(string _name, float _x, float _y,ofImage _backImage,ofImage _buttonImage,float _minVal,float _maxVal, float _val = 0.0);
+	void  setup(string _name, float _x, float _y,float _w,float _h,ofImage _backImage,ofImage _buttonImage,float _minVal,float _maxVal, float _val = 0.0);
 	void	setFace(ofImage _img);
 	void	setButtonFace(ofImage _img);
 	void	setBackImage(ofImage _img);

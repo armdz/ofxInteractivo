@@ -55,6 +55,10 @@ public:
     void  set_system_owned();
     void  set_deleteable(bool _val);
     void  set_selected(bool _val);
+    
+    void  setRightAlign(float _sep);
+    void  disableAlign(){ rightAlign = false;};
+    
 		void	lockEvents();
 		void  unlockEvents();
    
@@ -156,6 +160,8 @@ protected:
 		//	new
 		
 		ofMatrix4x4	matrix;
+    float   alignSeparation;
+    bool    rightAlign;
 
 
 };

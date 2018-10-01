@@ -48,9 +48,12 @@ public:
     int     pressed();
     bool    bang_pressed();
     bool    bang_released();
+    ofPoint prev;
+    float   angle;
     ofxINHIDPointer         get_with_id(int _id);
     vector<ofxINHIDPointer> *get_pointers();
 private:
+    void    setPosition(float _x,float _y);
     vector<ofxINHIDPointer>				vec_pointers;
 		std::map<int, ofxINHIDPointer> pointers;
 
