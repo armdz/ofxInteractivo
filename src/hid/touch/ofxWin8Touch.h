@@ -7,5 +7,8 @@
 
 #pragma once
 
+#ifdef TARGET_WIN32
+
 void ofxWin8TouchSetup();
 
+#endif

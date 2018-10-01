@@ -12,6 +12,9 @@
 
 #include "ofxWin8Touch.h"
 
+#ifdef TARGET_WIN32
+
+
 static WNDPROC prevWndProc;
 
 /* Get window pointer */
@@ -186,6 +189,7 @@ void ofxWin8TouchSetup() {
 			return;
 		}
 
-//		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
+		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
 }
 
+#endif
