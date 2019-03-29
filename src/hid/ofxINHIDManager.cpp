@@ -8,12 +8,6 @@
 
 #include "ofxINHIDManager.h"
 
-//	Touch
-#ifdef TARGET_WIN32 || TARGET_WIN64
-
-#include "ofxWin8Touch.h"
-
-#endif
 
 
 
@@ -111,7 +105,7 @@ void		ofxINHIDManager::setup_touch()
 {
 	#ifdef TARGET_WIN32 || TARGET_WIN64
 
-	ofxWin8TouchSetup();
+	//ofxWin8TouchSetup();
 
 	#endif
     
