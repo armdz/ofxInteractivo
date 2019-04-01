@@ -115,12 +115,12 @@ void    ofxInteractivoImages::draw_centered(ofImage &_image,float _scale)
 //
 
 //  for global images, scope : all app
-ofImage ofxInteractivoImages::get(string _image_name)
+ofImage& ofxInteractivoImages::get(string _image_name)
 {
     return get(GLOBAL_LIBRARY_NAME,_image_name);
 }
 
-ofImage ofxInteractivoImages::get(string _library_name,string _image_name)
+ofImage& ofxInteractivoImages::get(string _library_name,string _image_name)
 {
     if(libraries.count(_library_name) == 0){
         return lost_image;

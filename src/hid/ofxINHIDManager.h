@@ -11,7 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxINHIDPointer.h"
-
+#include "ofxWin8Touch.h"
 
 enum ofxINHIDType
 {

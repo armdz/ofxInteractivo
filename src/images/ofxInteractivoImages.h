@@ -25,8 +25,8 @@ public:
     //      drawing images
     void    draw_centered(ofImage &_image,float _scale = 1.0);
     //
-    ofImage get(string _image_name);
-    ofImage get(string _library_name,string _image_name);
+    ofImage &get(string _image_name);
+    ofImage &get(string _library_name,string _image_name);
     ofxInteractivoImageLibrary  get_library(string _library_name);
 private:
     std::map<std::string, ofxInteractivoImageLibrary&> libraries;

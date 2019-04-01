@@ -23,7 +23,7 @@ void    Scene::setup(string _name)
     name = _name;
     ofxINUIObject::setup(name);
     APP::image.scan("scenes/" + name, name);
-
+		onSetup();
 }
 
 void    Scene::update()
