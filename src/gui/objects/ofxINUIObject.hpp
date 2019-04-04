@@ -11,9 +11,10 @@
 
 #include <stdio.h>
 #include "ofMain.h"
-#include "UIConstants.h"
+#include "ofxINUI.h"
 #include "ofxJSON.h"
 #include "ofxINHIDEvent.h"
+#include "ofxInteractivo.h"
 
 enum ofxINUIObjectStates
 {
@@ -24,19 +25,20 @@ enum ofxINUIObjectStates
 };
 
 
-class ofxINUIObject : public ofRectangle {
+class ofxINUIObject{
 
 public:
     ofxINUIObject();
     ~ofxINUIObject();
-    virtual void  setup(string _name);
+    
     virtual void  set_name(string _name);
     virtual void  destroy();
-    void  set_parent(ofxINUIObject  *_parent);
+
+    void  setParent(ofxINUIObject  *_parent);
     void  delegate(bool _pressed);
     void  set_draggable(bool  _val);
     void  update();
-    virtual void  enable(bool _val);
+   // virtual void  enable(bool _val);
     void  enable_childs(bool  _val);
     void  set_layer(int _layer);
     void  set_obj_type(string _type);
@@ -45,34 +47,42 @@ public:
     void  remove_child(ofxINUIObject* _child);
     void  clear_childs();
     void  update_childs();
-    void  draw_childs();
+    void  drawChilds();
     void  childs_behavior();
-    void  set_interactive(bool _val);
-    void  set_visible(bool  _val);
+		void	setEnable(bool _val);
+    void  setVisible(bool  _val);
     void  set_info(ofxJSONElement _info);
     void  set_system_owned();
     void  set_deleteable(bool _val);
     void  set_selected(bool _val);
+    
+    void  setRightAlign(float _sep);
+    void  disableAlign(){ rightAlign = false;};
+    
+		void	lockEvents();
+		void  unlockEvents();
    
     //
     virtual ofxJSONElement  get_json();
     virtual void  init(){};
     virtual void  behavior(){};
     virtual void  draw();
-    virtual void  on_pressed_delegate(ofxINHIDEvent   &_e){};   //  for override the action of press
+    virtual void  onPressedDelegate(ofxINHIDEvent   &_e){};   //  for override the action of press
+		virtual void  onPressedDelegate(int _id,float _x,float _y) {};   //  for override the action of press
+
     virtual vector<ofxINUIObject*> get_childs(){return childs;};
-    string  get_name();
-    bool    is_idle();
-    bool    is_over();
-    bool    is_pressed();
+    string  getName();
+    bool    isIdle();
+    bool    isOver();
     bool    double_click();
     bool    is_draggable();
-    bool    is_released();
-    bool    is_enabled();
-    bool    is_visible();
+    bool    isReleased();
+    bool    isEnable();
+    bool    isVisible();
     bool    is_system_owned();
     bool    deletable();
     bool    is_selected();
+		bool		stopPropagate();
     int     get_layer();
     int     get_id();
     void	  print_status();
@@ -81,7 +91,40 @@ public:
     ofxINUIObject* get_parent();
     ofxINUIObject* get_child_by(string _name);
     ofxJSONElement  get_info();
+
+		//	
+		void  setup(string _name);
+		virtual	void	onSetup() {};
+		virtual void  onDraw() {};
+		void	addChild(ofxINUIObject*	_child);
+		void	scale(float _x, float	_y);
+		void	setPosition(float	_x, float _y, float _z = 0.0f);
+		void	setSize(float _w, float _h);
+		void	rotate(float _deg);
+		void	setWidth(float _w);
+		void	setHeight(float _h);
+		void	setX(float _x);
+		void	setY(float _y);
+		void	pushMatrix();	//	draw matrix
+		void	popMatrix();
+		bool	inside(float _x, float _y);
+		ofMatrix4x4	getMatrix();
+		ofPoint pointAsLocal(float _x, float _y);
+		string	getStatus();
+		float getX();
+		float getY();
+		float	getWidth();
+		float getHeight();
+		ofPoint getCenter();
+		float	x;
+		float	y;
+		
 protected:
+		//	new
+		ofRectangle			rect;
+		void						calculateFinalMatrix();	//	for collide
+		ofMatrix4x4			finalMatrix;
+
     //  events
     void    hid_move(ofxINHIDEvent   &_e);
     void    hid_pressed(ofxINHIDEvent   &_e);
@@ -98,20 +141,28 @@ protected:
     int     child_index_to_delete;
 		int			hid_pointer_id;
     bool    draggable;
-    bool    is_enable;
+    bool    enable;
     bool    do_double_click;
     bool    visible;
     bool    system_owned; //  if true, not saved on project file
-    bool    interactive;
     bool    mouse_press_state;
     bool    is_deletable;
     bool    selected;
     bool    pressed_is_delegated;
+		bool		eventsLocked;
+		bool		stopClickPropagate;
     ofxINUIObject *parent;
     ofxINUIObject *object_over;
     ofPoint     initial_pos;  //  in case it has a parent, save the initial pos
     ofxJSONElement       info;  //  save raw json data
     vector<ofxINUIObject*>  childs;
+
+		//	new
+		
+		ofMatrix4x4	matrix;
+    float   alignSeparation;
+    bool    rightAlign;
+
 
 };
 

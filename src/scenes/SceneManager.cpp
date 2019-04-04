@@ -28,16 +28,17 @@ void    SceneManager::setup(vector<ofxINHIDPointer> *_hid_pointers)
 }
 void    SceneManager::add(Scene *_scene)
 {
-    app_log("Added scene " + _scene->ofxINUIObject::get_name());
-    scenes.insert(std::pair<string,Scene* >(_scene->ofxINUIObject::get_name(),_scene));
+    app_log("Added scene " + _scene->ofxINUIObject::getName());
+    scenes.insert(std::pair<string,Scene* >(_scene->ofxINUIObject::getName(),_scene));
 }
 
 void    SceneManager::update(ofEventArgs  &_args)
 {
     hid_bridge.update();
     gui.update();
+
     for(auto scene : scenes)
-        scene.second->update();
+        scene.second->pUpdate();
 }
 
 void    SceneManager::draw(ofEventArgs  &_args)

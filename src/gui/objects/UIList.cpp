@@ -35,7 +35,7 @@ void  UIList::behavior()
     int i=0;
     while(i<button_items.size() && selected_item == -1)
     {
-      if(button_items.at(i)->on_pressed())
+      if(button_items.at(i)->onPressed())
       {
         selected_item = i;
       }
@@ -48,7 +48,7 @@ void  UIList::behavior()
       
       UIEvents  item_evt = UIEvents();
       item_evt.type = UI_EVENT_LIST_SELECTED_ITEM;
-      item_evt.source_name = button_items.at(selected_item)->get_name();
+      item_evt.source_name = button_items.at(selected_item)->getName();
       item_evt.ui_object = button_items.at(selected_item);
       item_evt.info = button_items.at(selected_item)->get_info();
       ofNotifyEvent(UIEvents::events,item_evt);
@@ -65,7 +65,7 @@ void  UIList::behavior()
 
 void  UIList::draw()
 {
-  draw_childs();
+  drawChilds();
 }
 
 void  UIList::parse(ofxJSONElement  _data)
@@ -76,20 +76,19 @@ void  UIList::parse(ofxJSONElement  _data)
   float max_width = min_width;
   for(int i=0;i<data.size();i++)
   {
-    max_width = max(max_width,VSUI::calculate_bbox(_data[i]["label"].asString()).getWidth());
+  //  max_width = max(max_width,ofxINUI::calculate_bbox(_data[i]["label"].asString()).getWidth());
   }
   setWidth(max_width+UI_FONT_SIZE*2.0);
   //
   for(int i=0;i<data.size();i++)
   {
     //  label,id
-    ofxINUIButton  *button = new ofxINUIButton();
+   /* ofxINUIButton  *button = new ofxINUIButton();
     button->setup(_data[i]["id"].asString(), _data[i]["label"].asString());
-    button->set(0,0,getWidth(),getHeight());
-    button->setY(getHeight()+(i*getHeight()));
+
     button->set_info(data[i]);
     add_child(button);
-    button_items.push_back(button);
+    button_items.push_back(button);*/
   }
   update();
   

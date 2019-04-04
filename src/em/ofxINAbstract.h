@@ -21,7 +21,7 @@ protected:
     void    set_name(string _name){
         name = _name;
     };
-    string  get_name()
+    string  getName()
     {
         return name;
     };

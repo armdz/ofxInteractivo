@@ -9,7 +9,7 @@
 #ifndef UIEvents_hpp
 #define UIEvents_hpp
 
-#include "UIConstants.h"
+#include "ofxINUI.h"
 #include "ofxINUIObject.hpp"
 #include "ofxJSON.h"
 

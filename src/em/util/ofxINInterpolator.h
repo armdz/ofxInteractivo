@@ -29,11 +29,13 @@ public:
     ofxINInterpolator();
     ~ofxINInterpolator();
     void  setup(string _name,float _init,float _final,float   _duration,float (*_type)(float,float,float,float),bool _loop = false);
+    void  setRange(float _init,float _end);
     void  start();
     void  rewind();
     void  stop();
     void  reset();
     void  loop(bool _val);
+    void  setDuration(float _val);
     void  update();
     bool  bang();
     float val();

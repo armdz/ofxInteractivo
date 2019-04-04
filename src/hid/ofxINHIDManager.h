@@ -11,7 +11,11 @@
 
 #include "ofMain.h"
 #include "ofxINHIDPointer.h"
+<<<<<<< HEAD
 #include "ofxWin8Touch.h"
+=======
+#include "ofxINUI.h"
+>>>>>>> 72018f2dc077993af0e74c756862bd9771698f19
 
 enum ofxINHIDType
 {
@@ -48,9 +52,12 @@ public:
     int     pressed();
     bool    bang_pressed();
     bool    bang_released();
+    ofPoint prev;
+    float   angle;
     ofxINHIDPointer         get_with_id(int _id);
     vector<ofxINHIDPointer> *get_pointers();
 private:
+    void    setPosition(float _x,float _y);
     vector<ofxINHIDPointer>				vec_pointers;
 		std::map<int, ofxINHIDPointer> pointers;
 

@@ -84,7 +84,7 @@ void    ofxInteractivoImageLibrary::draw_file_list(float _x,float _y)
 
 //
 
-string  ofxInteractivoImageLibrary::get_name()
+string  ofxInteractivoImageLibrary::getName()
 {
     return name;
 }

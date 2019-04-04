@@ -13,22 +13,29 @@
 #include "ofxINUIObject.hpp"
 #include "ofxINUIButton.hpp"
 #include "ofxINUIImageButton.hpp"
-#include "APP.h"
+#include "ofxINUIComboColor.h"
+#include "ofxINUISlider.h"
 
-class Scene : public ofxINUIObject,private ofxINObject{
+#include "ofxInteractivo.h"
+
+class Scene : public ofxINUIObject,public ofxINObject{
     
 public:
     Scene();
     ~Scene();
     void    setup(string _name);
+<<<<<<< HEAD
 		virtual void		onSetup() {};
+=======
+    virtual void    onSetup(){};
+>>>>>>> 72018f2dc077993af0e74c756862bd9771698f19
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided
-    virtual void    custom_update(){};
+    virtual void    update(){};
     virtual void    draw(){};
     ofImage image(string _name);
-    void    update();
+    void    pUpdate();
 protected:
     string  name;
 };

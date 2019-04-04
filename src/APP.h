@@ -14,49 +14,55 @@
 #include "ofxInteractivoFont.h"
 #include "ofxInteractivoColorPalette.h"
 #include "ofxInteractivoImages.h"
-#include "VideoInputManager.hpp"
 #include "ofxJSON.h"
 
-namespace ofxInteractivo  {
+class APP {
     
-    class APP {
-        
-    public:
-        static void init(string _name,int _output_width = 0,int _output_height = 0,bool	 _touch = false);        
-        static ofxINHIDManager   hid;
-        static ofxInteractivoFont  font;
-        static ofxInteractivoColorPalette   color;
-        static ofxInteractivoImages image;
-        static VideoInputManager    video_input;
-        
-        static int  width,height;
-        static string name;
-        
-        //  App config
-        
-        static  ofxJSONElement  config();
-        static  int     config_i(string _key_name);
-        static  float   config_f(string _key_name);
-        static  string  config_s(string _key_name);
-        
-        //  APP events
-        
+public:
+    static void init(string _name,int _output_width = 0,int _output_height = 0,bool	 _touch = false);
+    static ofxINHIDManager              hid;
+    static ofxInteractivoFont           font;
+    static ofxInteractivoColorPalette   color;
+    static ofxInteractivoImages         image;
+    
+    static int  width,height;
+    static string name;
+    
+    //  App config
+    
+    static  ofxJSONElement  config();
+		static	void		saveConfig();
+		static	void		loadConfig();
+    static  int     getInt(string _name);
+    static  float   getFloat(string _name);
+    static  string  getString(string _name);
+    
+    static  void    setInt(string _name,int _val);
+    static  void    setFloat(string _name,float _val);
+    static  void    setString(string _name,string _val);
+    
+    //  APP events
+    
 
-        //  APP related functions
-        
-        static  void    background(ofColor _color);
-        static  void    background(string   _color_name);
+    //  APP related functions
+    
+    static  void    background(ofColor _color);
+    static  void    background(string   _color_name);
 
-        static  void    push_center();
-        static  void    pop_center();
-        static  void    show_fps();
+    static  void    pushCenter();
+    static  void    popCenter();
+    static  void    showFps();
+    
+    static  void    setPropertie(string _id,float _val);
+    static  float   getPropertie(string _id);
+    static  map<string,float>   floatProperties;
 
-    private:
-        
-        static ofxJSONElement json_config;
-        
-    };
-}
+private:
+    
+    static ofxJSONElement json_config;
+    
+};
+
 
 
 

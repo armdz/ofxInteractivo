@@ -1,13 +1,13 @@
 //
-//  UIConstants.h
+//  ofxINUI.h
 //  Cajas
 //
 //  Created by lolo on 11/22/16.
 //
 //
 
-#ifndef UIConstants_h
-#define UIConstants_h
+#ifndef ofxINUI_h
+#define ofxINUI_h
 #include "ofMain.h"
 
 
@@ -32,9 +32,20 @@ enum{
 
 static int UI_FONT_SIZE = 10;
 
-static ofFloatColor VSUI_COLOR_IDLE = ofFloatColor(.3,1.0);
-static ofFloatColor VSUI_COLOR_TEXT = ofFloatColor(1.0,1.0);
-static ofFloatColor VSUI_COLOR_OVER = ofFloatColor(1.0,0.0,.5,1.0);
+static ofFloatColor ofxINUI_COLOR_IDLE = ofFloatColor(.3,1.0);
+static ofFloatColor ofxINUI_COLOR_TEXT = ofFloatColor(1.0,1.0);
+static ofFloatColor ofxINUI_COLOR_OVER = ofFloatColor(1.0,0.0,.5,1.0);
+
+static struct ofxINUISkin
+{
+	ofFloatColor idle = ofFloatColor(.3, 1.0);
+	ofFloatColor over = ofFloatColor(1.0, 1.0);
+	ofFloatColor pressed = ofFloatColor(1.0, 0.0, .5, 1.0);
+	ofFloatColor imageButtonIdle = ofFloatColor(1.0);
+	ofFloatColor imageButtonPressed = ofFloatColor(.5);
+};
+
+
 
 static string OBJ_UI_TYPE_DOT = "UI_DOT";
 static string OBJ_UI_TYPE_NODE = "UI_NODE";
@@ -55,18 +66,29 @@ static ofFloatColor CONNECTION_HIGHLIGHT = ofFloatColor(0.0,1.0);
 //  this dont be here ?
 static string  CJS_VALUE_BUNDLE = "cajas.generic.value_node";
 
-  
-class VSUI
+static bool		_stopClickPropagation;
+
+
+class ofxINUI
 {
 public:
-  VSUI();
-  ~VSUI();
+	ofxINUI();
+  ~ofxINUI();
   static void  init();
+	static void	 stopClickPropagation();
+	static void  resetClickPropagation();
+	static bool	 canPropagate();
+
+	static bool		GUI_PRESSED;
+
   static ofRectangle  calculate_bbox(string _text);
   static bool         is_number(const std::string& s);
-  static ofTrueTypeFont  font;
+  static ofTrueTypeFont		font;
+	static ofxINUISkin			skin;
+	
+
 };
 
 
 
-#endif /* UIConstants_h */
+#endif /* ofxINUI_h */

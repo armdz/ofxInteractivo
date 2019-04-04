@@ -1,9 +1,9 @@
 # ofxInteractivo
 Utils para el diseño interactivo prolijo
 
-Requiere ofxJSON
+Requiere ofxJSON,ofxSVG
 
-# MODULOS
+# MODULOS (ESTO ESTA VIEJO NI LEER MIRAR EL EJEMPLO)
 
 ofxInteractivoHid
 Todo lo que tenga que ver con interfaz humana, por ahora cachea el mouse, tengo que agregarle touch
