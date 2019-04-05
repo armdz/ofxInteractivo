@@ -83,7 +83,8 @@ void    ofxINHIDManager::mouseReleased(ofMouseEventArgs &arg)
     is_released = true;
     pointers[0].state = HIDPointerState_Released;
     pointers[0].frame_stamp = ofGetFrameNum();
-		ofxINUI::resetClickPropagation();
+	
+	ofxINUI::resetClickPropagation();
 }
 
 void    ofxINHIDManager::mouseEntered(ofMouseEventArgs &arg)

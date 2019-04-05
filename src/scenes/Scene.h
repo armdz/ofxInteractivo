@@ -24,11 +24,7 @@ public:
     Scene();
     ~Scene();
     void    setup(string _name);
-<<<<<<< HEAD
-		virtual void		onSetup() {};
-=======
     virtual void    onSetup(){};
->>>>>>> 72018f2dc077993af0e74c756862bd9771698f19
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided

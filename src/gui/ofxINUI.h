@@ -74,7 +74,7 @@ class ofxINUI
 public:
 	ofxINUI();
   ~ofxINUI();
-  static void  init();
+	static void  init();
 	static void	 stopClickPropagation();
 	static void  resetClickPropagation();
 	static bool	 canPropagate();

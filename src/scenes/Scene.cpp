@@ -22,11 +22,9 @@ void    Scene::setup(string _name)
 {
     name = _name;
     APP::image.scan("scenes/" + name, name);
-<<<<<<< HEAD
-=======
-    ofxINUIObject::setup(name);
+
+		ofxINUIObject::setup(name);
 		setEnable(true);
->>>>>>> 72018f2dc077993af0e74c756862bd9771698f19
 		onSetup();
 }
 
