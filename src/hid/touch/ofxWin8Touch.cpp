@@ -189,7 +189,9 @@ void ofxWin8TouchSetup() {
 			return;
 		}
 
-		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
+		#ifdef TARGET_WIN32
+			//prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
+		#endif
 }
 
 #endif
