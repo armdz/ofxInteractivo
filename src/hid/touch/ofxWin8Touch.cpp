@@ -178,18 +178,6 @@ LRESULT APIENTRY pointerWndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 void ofxWin8TouchSetup() {
 
 
-		HWND hwnd = getOfxWindow();
-		if(!hwnd) {
-			ofLogError() << "Failed to get HWND for ofx window - try calling this later in update().";
-			return;
-		}
-
-		if(prevWndProc) {
-			ofLogError() << "Already called ofxWin8TouchSetup!";
-			return;
-		}
-
-		prevWndProc = (WNDPROC)SetWindowLongPtr(hwnd, GWL_WNDPROC, (LONG_PTR)pointerWndProc);
 }
 
 #endif

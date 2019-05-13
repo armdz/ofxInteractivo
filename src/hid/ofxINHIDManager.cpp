@@ -9,11 +9,6 @@
 #include "ofxINHIDManager.h"
 
 //	Touch
-#ifdef TARGET_WIN32 || TARGET_WIN64
-
-#include "ofxWin8Touch.h"
-
-#endif
 
 
 
@@ -116,11 +111,7 @@ void    ofxINHIDManager::mouseScrolled(ofMouseEventArgs &arg)
 
 void		ofxINHIDManager::setup_touch()
 {
-	#ifdef TARGET_WIN32
-
-		ofxWin8TouchSetup();
-
-	#endif
+	
     
     ofRegisterTouchEvents(this);
 
