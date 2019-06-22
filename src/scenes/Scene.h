@@ -21,12 +21,14 @@ public:
     Scene();
     ~Scene();
     void    setup(string _name);
+		virtual void		onSetup() {};
     virtual void    on_show(){};  //  prev to show
     virtual void    on_hide(){};  //  prev to hide
     virtual void    reset(){};   //  called when is totally hided
     virtual void    custom_update(){};
     virtual void    draw(){};
     ofImage image(string _name);
+    ofImage &getImage(string _name);
     void    update();
 protected:
     string  name;

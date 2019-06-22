@@ -105,11 +105,11 @@ void		ofxINHIDManager::setup_touch()
 {
 	#ifdef TARGET_WIN32 || TARGET_WIN64
 
-	//ofxWin8TouchSetup();
+	ofxWin8TouchSetup();
 
 	#endif
     
-    ofRegisterTouchEvents(this);
+  ofRegisterTouchEvents(this);
 
 }
 
